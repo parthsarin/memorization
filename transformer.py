@@ -77,8 +77,8 @@ class Model:
             vocab_size=self.tokenizer.vocab_size,
             bos_token_id=self.tokenizer.bos_token,
             eos_token_id=self.tokenizer.eos_token,
-            n_embd=2,
-            n_head=1,
+            n_embd=n_embd,
+            n_head=n_head,
         )
         self.model = GPT2LMHeadModel(self.config)
 
@@ -88,28 +88,16 @@ class Model:
         """
         data = self.tokenizer.encode_batch(data)
         optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
-        criterion = torch.nn.CrossEntropyLoss()
 
         with tqdm(total=n_epochs) as pbar:
             for epoch in range(n_epochs):
-                avg_loss = 0
-                for i in range(len(data)):
-                    optimizer.zero_grad()
+                optimizer.zero_grad()
+                x = data
+                loss = self.model(x, labels=x).loss
+                loss.backward()
+                optimizer.step()
 
-                    x = data[i][:-1].unsqueeze(0)
-                    y = data[i][1:].unsqueeze(0)
-
-                    out = self.model(x)
-                    logits = out.logits.transpose(1, 2)
-                    loss = criterion(logits, y)
-
-                    loss.backward()
-                    optimizer.step()
-
-                    avg_loss += loss.item()
-
-                avg_loss /= len(data)
-                pbar.set_postfix({"loss": avg_loss})
+                pbar.set_postfix({"loss": loss.item()})
                 pbar.update(1)
                 intermediate_fn()
 
@@ -133,13 +121,14 @@ class Model:
         Visualizes the embeddings of the given characters.
         """
         tokens = self.tokenizer.encode(chars)
-        embeddings = self.model.transformer.wte(tokens)
+        embeddings = self.model.transformer.wte.weight
         embeddings = embeddings.detach().numpy()
 
         # Use t-SNE to reduce the dimensionality of the embeddings for visualization
         # tsne = TSNE(n_components=2, random_state=0)
         # embeddings_2d = tsne.fit_transform(embeddings)
         embeddings_2d = embeddings
+        embeddings_2d = embeddings_2d[tokens.numpy()]
 
         # Plot the embeddings
         plt.cla()
@@ -162,10 +151,22 @@ class Model:
 
 if __name__ == "__main__":
     m = Model()
-    data = ["<s>aaaaaaaaaaa</s>", "<s>bbbbbbbbbbb</s>", "<s>abababababa</s>"]
+    data = [
+        # "<s>aaaaaaaaaaa</s>",
+        # "<s>bbbbbbbbbbb</s>",
+        # "<s>abababababa</s>",
+        # "<s>bababababab</s>",
+        "<s>a",
+        "<s>a",
+        "<s>a",
+        "<s>a",
+        "<s>b",
+        "<s>c",
+        "<s>d",
+    ]
 
     def int_fn():
-        return m.visualize(["a", "b", "<s>", "</s>"])
+        return m.visualize(["a", "b", "c", "d"])
 
     plt.ion()
     plt.show()
