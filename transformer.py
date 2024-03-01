@@ -82,7 +82,7 @@ class Model:
         )
         self.model = GPT2LMHeadModel(self.config)
 
-    def train(self, data, n_epochs=100):
+    def train(self, data, n_epochs=100, intermediate_fn=lambda: None):
         """
         Trains the model using next-token loss, on the given data
         """
@@ -111,6 +111,7 @@ class Model:
                 avg_loss /= len(data)
                 pbar.set_postfix({"loss": avg_loss})
                 pbar.update(1)
+                intermediate_fn()
 
     def generate(self, seed, max_len=100):
         """
@@ -141,14 +142,32 @@ class Model:
         embeddings_2d = embeddings
 
         # Plot the embeddings
-        plt.figure(figsize=(10, 10))
+        plt.cla()
+        ax = plt.gca()
+        fig = plt.gcf()
         for i, token in enumerate(chars):
-            plt.scatter(embeddings_2d[i, 0], embeddings_2d[i, 1])
-            plt.annotate(
+            ax.plot([0, embeddings_2d[i, 0]], [0, embeddings_2d[i, 1]])
+            ax.scatter(embeddings_2d[i, 0], embeddings_2d[i, 1])
+            ax.annotate(
                 token,
                 (embeddings_2d[i, 0], embeddings_2d[i, 1]),
                 textcoords="offset points",
                 xytext=(0, 10),
                 ha="center",
             )
-        plt.show()
+        # ax.pause(0.001)
+        fig.canvas.draw()
+        fig.canvas.flush_events()
+
+
+if __name__ == "__main__":
+    m = Model()
+    data = ["<s>aaaaaaaaaaa</s>", "<s>bbbbbbbbbbb</s>", "<s>abababababa</s>"]
+
+    def int_fn():
+        return m.visualize(["a", "b", "<s>", "</s>"])
+
+    plt.ion()
+    plt.show()
+
+    m.train(data, 10_000, int_fn)
