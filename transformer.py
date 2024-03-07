@@ -24,6 +24,7 @@ class Tokenizer:
         self.vocab_size = len(self.VOCAB)
         self.bos_token = self.VOCAB["<s>"]
         self.eos_token = self.VOCAB["</s>"]
+        self.__param_copy = None
 
     def encode(self, s, pad_len=None):
         """
@@ -71,7 +72,7 @@ class Tokenizer:
 
 
 class Model:
-    def __init__(self, n_embd=2, n_head=1):
+    def __init__(self, n_embd=128, n_head=32):
         self.tokenizer = Tokenizer()
         self.config = GPT2Config(
             vocab_size=self.tokenizer.vocab_size,
@@ -82,7 +83,7 @@ class Model:
         )
         self.model = GPT2LMHeadModel(self.config)
 
-    def train(self, data, n_epochs=100, intermediate_fn=lambda: None):
+    def train(self, data, n_epochs=100, intermediate_fn=lambda: None, loss_stop=None):
         """
         Trains the model using next-token loss, on the given data
         """
@@ -101,6 +102,36 @@ class Model:
                 pbar.update(1)
                 intermediate_fn()
 
+                if epoch % 10 == 0:
+                    self.__param_copy = self.model.state_dict().copy()
+
+                    if loss_stop is not None and loss.item() < loss_stop:
+                        break
+
+    def gradient(self, point):
+        """Computes the gradient of the loss function with respect to the point"""
+        x = self.tokenizer.encode(point)
+        loss = self.model(x, labels=x).loss
+        loss.backward()
+
+        grads = []
+        for p in self.model.parameters():
+            grads.append(p.grad)
+            p.grad = None
+        return grads
+
+    def prob(self, point):
+        """Returns the probability the model assigns to the given point"""
+        x = self.tokenizer.encode(point)
+        logits = self.model(x).logits
+        probs = torch.softmax(logits, dim=-1)
+
+        # gather the probabilities of the correct tokens
+        probs = torch.gather(probs, 1, x.unsqueeze(1)).squeeze(1)
+
+        # multiply them together to get the probability of the sequence
+        return probs.prod().item()
+
     def generate(self, seed, max_len=100):
         """
         Generates a sequence of tokens from the given seed.
@@ -116,19 +147,30 @@ class Model:
         )
         return self.tokenizer.decode(out[0].tolist())
 
+    def mask_params(self, grad_mask, threshold):
+        for param, grad in zip(self.model.parameters(), grad_mask):
+            # set params with low grad to zero
+            param[grad.abs() < threshold] = 0
+
+    def restore_params(self):
+        if self.__param_copy is not None:
+            self.model.load_state_dict(self.__param_copy)
+
     def visualize(self, chars):
         """
         Visualizes the embeddings of the given characters.
         """
-        tokens = self.tokenizer.encode(chars)
+        self.tokenizer.encode(chars)
         embeddings = self.model.transformer.wte.weight
         embeddings = embeddings.detach().numpy()
 
         # Use t-SNE to reduce the dimensionality of the embeddings for visualization
-        # tsne = TSNE(n_components=2, random_state=0)
-        # embeddings_2d = tsne.fit_transform(embeddings)
-        embeddings_2d = embeddings
-        embeddings_2d = embeddings_2d[tokens.numpy()]
+        from sklearn.manifold import TSNE
+
+        tsne = TSNE(n_components=2, random_state=0)
+        embeddings_2d = tsne.fit_transform(embeddings)
+        # embeddings_2d = embeddings
+        # embeddings_2d = embeddings_2d[tokens.numpy()]
 
         # Plot the embeddings
         plt.cla()
@@ -148,27 +190,22 @@ class Model:
         fig.canvas.draw()
         fig.canvas.flush_events()
 
+    def __repr__(self):
+        return repr(self.model)
+
 
 if __name__ == "__main__":
     m = Model()
     data = [
-        # "<s>aaaaaaaaaaa</s>",
-        # "<s>bbbbbbbbbbb</s>",
-        # "<s>abababababa</s>",
-        # "<s>bababababab</s>",
-        "<s>a",
-        "<s>a",
-        "<s>a",
-        "<s>a",
-        "<s>b",
-        "<s>c",
-        "<s>d",
+        "<s>aaaaaaaaaaa</s>",
+        "<s>bbbbbbbbbbb</s>",
     ]
 
-    def int_fn():
-        return m.visualize(["a", "b", "c", "d"])
+    # def int_fn():
+    #     return m.visualize(["a", "b", "c", "d"])
 
-    plt.ion()
-    plt.show()
+    # plt.ion()
+    # plt.show()
 
-    m.train(data, 10_000, int_fn)
+    # m.train(data, 10_000, int_fn)
+    m.train(data, 10_000)
