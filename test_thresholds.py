@@ -42,7 +42,9 @@ DATA = gen_dataset()
 
 def main(eq_thresh=1e-2):
     m = Model()
-    m.train(DATA, 1_000)
+    m.generate_point_mask()
+    m.mask_point(DATA[0])  # only train 10% of the parameters on this point
+    m.train(DATA, 300)
     thresholds = np.linspace(0, 0.05, 1000)
 
     seqs = [DATA[0], DATA[1]]
@@ -66,16 +68,16 @@ def main(eq_thresh=1e-2):
         m.restore_params()
 
     # trim the sequences to the point where they're all equal
-    new_len = min(
-        i
-        for i in range(len(seq_probs[0]))
-        if all(
-            np.abs(seq_probs[j][i] - seq_probs[0][i]) < eq_thresh
-            for j in range(len(seqs))
-        )
-    )
-    seq_probs = [seq[: round(new_len * 1.1)] for seq in seq_probs]
-    thresholds = thresholds[: round(new_len * 1.1)]
+    # new_len = min(
+    #     i
+    #     for i in range(len(seq_probs[0]))
+    #     if all(
+    #         np.abs(seq_probs[j][i] - seq_probs[0][i]) < eq_thresh
+    #         for j in range(len(seqs))
+    #     )
+    # )
+    # seq_probs = [seq[: round(new_len * 1.1)] for seq in seq_probs]
+    # thresholds = thresholds[: round(new_len * 1.1)]
 
     # plot the results
     for i, seq in enumerate(seqs):

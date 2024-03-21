@@ -82,23 +82,57 @@ class Model:
             n_head=n_head,
         )
         self.model = GPT2LMHeadModel(self.config)
+        self.__mask = []
+        self.__masked_points = set()
+
+    def generate_point_mask(self, p=0.1):
+        # add a mask where we only train p% of the parameters just for this point
+        self.mask = []
+        for param in self.model.parameters():
+            t = torch.rand_like(param) < p
+            t = t.long()
+            self.mask.append(t)
+
+    def mask_point(self, point):
+        self.__masked_points.add(point)
 
     def train(self, data, n_epochs=100, intermediate_fn=lambda: None, loss_stop=None):
         """
         Trains the model using next-token loss, on the given data
         """
-        data = self.tokenizer.encode_batch(data)
+        data_masked = self.tokenizer.encode_batch(
+            [l for l in data if l in self.__masked_points]
+        )
+        data = self.tokenizer.encode_batch(
+            [l for l in data if l not in self.__masked_points]
+        )
         optimizer = torch.optim.Adam(self.model.parameters(), lr=0.001)
 
         with tqdm(total=n_epochs) as pbar:
             for epoch in range(n_epochs):
+                total_loss = 0
+
+                # first backpropogate against the un-masked data
                 optimizer.zero_grad()
                 x = data
                 loss = self.model(x, labels=x).loss
                 loss.backward()
+                for param, m in zip(self.model.parameters(), self.mask):
+                    param.grad *= 1 - m
                 optimizer.step()
+                total_loss += loss.item()
 
-                pbar.set_postfix({"loss": loss.item()})
+                # now backpropogate against the masked data
+                optimizer.zero_grad()
+                x = data_masked
+                loss = self.model(x, labels=x).loss
+                loss.backward()
+                for param, m in zip(self.model.parameters(), self.mask):
+                    param.grad *= m
+                optimizer.step()
+                total_loss += loss.item()
+
+                pbar.set_postfix({"loss": total_loss})
                 pbar.update(1)
                 intermediate_fn()
 
