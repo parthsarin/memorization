@@ -1,3 +1,5 @@
 pytorch
 transformers
 numpy
+matplotlib
+seaborn

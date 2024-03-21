@@ -120,17 +120,21 @@ class Model:
             p.grad = None
         return grads
 
-    def prob(self, point):
-        """Returns the probability the model assigns to the given point"""
+    def logprob(self, point):
+        """Returns the log probability the model assigns to the given point"""
         x = self.tokenizer.encode(point)
         logits = self.model(x).logits
         probs = torch.softmax(logits, dim=-1)
+
+        # shift input and output so they overlap correctly
+        probs = probs[:-1, :]
+        x = x[1:]
 
         # gather the probabilities of the correct tokens
         probs = torch.gather(probs, 1, x.unsqueeze(1)).squeeze(1)
 
         # multiply them together to get the probability of the sequence
-        return probs.prod().item()
+        return torch.log(probs).sum().item()
 
     def generate(self, seed, max_len=100):
         """

@@ -10,18 +10,48 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from tqdm import tqdm
+from string import ascii_lowercase as lowercase
+from random import choice, random
 
 sns.set_theme(style="whitegrid")
 
-DATA = ["<s>aaaaaaaa</s>", "<s>bbbbbbbb</s>"]
+
+def sample_point(seq_len=10, vocab=lowercase, entropy=1):
+    x = "<s>"
+    entropy_flip = 1 - entropy
+    for i in range(seq_len):
+        if random() < entropy_flip and i > 0:
+            x += x[-1]
+        else:
+            x += choice(vocab)
+    x += "</s>"
+    return x
+
+
+def gen_dataset(n=20, seq_len=10, vocab=lowercase):
+    out = set()
+    while len(out) < n:
+        x = sample_point(seq_len, vocab)
+        out.add(x)
+    return list(out)
+
+
+# DATA = ["<s>aaaaaaaaaa</s>", "<s>bbbbbbbbbb</s>"]
+DATA = gen_dataset()
 
 
 def main(eq_thresh=1e-2):
     m = Model()
-    m.train(DATA, 400)
+    m.train(DATA, 1_000)
+    thresholds = np.linspace(0, 0.05, 1000)
 
-    thresholds = np.linspace(0, 1e-1, 100)
-    seqs = [DATA[0], DATA[1], "<s>cccccccc</s>"]
+    seqs = [DATA[0], DATA[1]]
+    # get a few out-of-distribution points
+    for entropy in [0, 0.25, 0.75, 1]:
+        p = DATA[0]
+        while p in DATA:
+            p = sample_point(entropy=entropy)
+        seqs.append(p)
     seq_probs = [[] for _ in range(len(seqs))]
 
     # try to un-memorize seqs[0]
@@ -31,7 +61,7 @@ def main(eq_thresh=1e-2):
             m.mask_params(grads, t)
 
         for i, seq in enumerate(seqs):
-            seq_probs[i].append(m.prob(seq))
+            seq_probs[i].append(m.logprob(seq))
 
         m.restore_params()
 
@@ -40,7 +70,7 @@ def main(eq_thresh=1e-2):
         i
         for i in range(len(seq_probs[0]))
         if all(
-            np.abs(np.log(seq_probs[j][i]) - np.log(seq_probs[0][i])) < eq_thresh
+            np.abs(seq_probs[j][i] - seq_probs[0][i]) < eq_thresh
             for j in range(len(seqs))
         )
     )
@@ -49,7 +79,7 @@ def main(eq_thresh=1e-2):
 
     # plot the results
     for i, seq in enumerate(seqs):
-        plt.plot(thresholds, np.log(seq_probs[i]), "-", label=seq)
+        plt.plot(thresholds, seq_probs[i], "-", label=seq)
 
     plt.xlabel("threshold")
     plt.ylabel("log probability")
