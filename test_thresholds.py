@@ -42,9 +42,9 @@ DATA = gen_dataset()
 
 def main(eq_thresh=1e-2):
     m = Model()
-    m.generate_point_mask()
+    m.generate_point_mask(0.01)
     m.mask_point(DATA[0])  # only train 10% of the parameters on this point
-    m.train(DATA, 300)
+    m.train(DATA, 800)
 
     # verify that the model hasn't memorized the params if we mask it
     print("Predicting using the full model:")
@@ -64,11 +64,11 @@ def main(eq_thresh=1e-2):
     thresholds = np.linspace(0, 0.05, 1000)
     seqs = [DATA[0], DATA[1]]
     # get a few out-of-distribution points
-    for entropy in [0, 0.25, 0.75, 1]:
-        p = DATA[0]
-        while p in DATA:
-            p = sample_point(entropy=entropy)
-        seqs.append(p)
+    # for entropy in [0, 0.25, 0.75, 1]:
+    #     p = DATA[0]
+    #     while p in DATA:
+    #         p = sample_point(entropy=entropy)
+    #     seqs.append(p)
     seq_probs = [[] for _ in range(len(seqs))]
 
     # try to un-memorize seqs[0]

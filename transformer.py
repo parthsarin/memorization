@@ -82,7 +82,7 @@ class Model:
             n_head=n_head,
         )
         self.model = GPT2LMHeadModel(self.config)
-        self.__mask = []
+        self.mask = []
         self.__masked_points = set()
 
     def generate_point_mask(self, p=0.1):
@@ -100,9 +100,12 @@ class Model:
         """
         Trains the model using next-token loss, on the given data
         """
-        data_masked = self.tokenizer.encode_batch(
-            [l for l in data if l in self.__masked_points]
-        )
+        if self.__masked_points:
+            data_masked = self.tokenizer.encode_batch(
+                [l for l in data if l in self.__masked_points]
+            )
+        else:
+            data_masked = []
         data = self.tokenizer.encode_batch(
             [l for l in data if l not in self.__masked_points]
         )
@@ -116,41 +119,46 @@ class Model:
                 optimizer.zero_grad()
                 x = data
 
-                tmp_store = []
-                with torch.no_grad():
-                    for param, m in zip(self.model.parameters(), self.mask):
-                        tmp_store.append(param * m)
-                        param *= 1 - m
+                # tmp_store = []
+                # with torch.no_grad():
+                #     for param, m in zip(self.model.parameters(), self.mask):
+                #         tmp_store.append(param * m)
+                #         param *= 1 - m
 
                 loss = self.model(x, labels=x).loss
                 loss.backward()
+                for param, m in zip(self.model.parameters(), self.mask):
+                    param.grad *= 1 - m
                 optimizer.step()
 
                 total_loss += loss.item()
 
-                with torch.no_grad():
-                    for param, t in zip(self.model.parameters(), tmp_store):
-                        param += t
+                # with torch.no_grad():
+                #     for param, t in zip(self.model.parameters(), tmp_store):
+                #         param += t
 
                 # now backpropogate against the masked data
-                optimizer.zero_grad()
-                x = data_masked
+                if self.__masked_points:
+                    optimizer.zero_grad()
+                    x = data_masked
 
-                tmp_store = []
-                with torch.no_grad():
+                    # tmp_store = []
+                    # with torch.no_grad():
+                    #     for param, m in zip(self.model.parameters(), self.mask):
+                    #         tmp_store.append(param * (1 - m))
+                    #         param *= m
+
+                    loss = self.model(x, labels=x).loss
+                    loss.backward()
                     for param, m in zip(self.model.parameters(), self.mask):
-                        tmp_store.append(param * (1 - m))
-                        param *= m
+                        param.grad *= m
+                    optimizer.step()
 
-                loss = self.model(x, labels=x).loss
-                loss.backward()
-                optimizer.step()
+                    total_loss += loss.item()
 
-                total_loss += loss.item()
-
-                with torch.no_grad():
-                    for param, t in zip(self.model.parameters(), tmp_store):
-                        param += t
+                    # with torch.no_grad():
+                    #     for param, t in zip(self.model.parameters(), tmp_store):
+                    #         param += t
 
                 pbar.set_postfix({"loss": total_loss})
                 pbar.update(1)
