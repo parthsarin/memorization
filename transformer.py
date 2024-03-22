@@ -115,29 +115,49 @@ class Model:
                 # first backpropogate against the un-masked data
                 optimizer.zero_grad()
                 x = data
+
+                tmp_store = []
+                with torch.no_grad():
+                    for param, m in zip(self.model.parameters(), self.mask):
+                        tmp_store.append(param * m)
+                        param *= 1 - m
+
                 loss = self.model(x, labels=x).loss
                 loss.backward()
-                for param, m in zip(self.model.parameters(), self.mask):
-                    param.grad *= 1 - m
                 optimizer.step()
+
                 total_loss += loss.item()
+
+                with torch.no_grad():
+                    for param, t in zip(self.model.parameters(), tmp_store):
+                        param += t
 
                 # now backpropogate against the masked data
                 optimizer.zero_grad()
                 x = data_masked
+
+                tmp_store = []
+                with torch.no_grad():
+                    for param, m in zip(self.model.parameters(), self.mask):
+                        tmp_store.append(param * (1 - m))
+                        param *= m
+
                 loss = self.model(x, labels=x).loss
                 loss.backward()
-                for param, m in zip(self.model.parameters(), self.mask):
-                    param.grad *= m
                 optimizer.step()
+
                 total_loss += loss.item()
+
+                with torch.no_grad():
+                    for param, t in zip(self.model.parameters(), tmp_store):
+                        param += t
 
                 pbar.set_postfix({"loss": total_loss})
                 pbar.update(1)
                 intermediate_fn()
 
                 if epoch % 10 == 0:
-                    self.__param_copy = self.model.state_dict().copy()
+                    torch.save(self.model.state_dict(), ".model.pt")
 
                     if loss_stop is not None and loss.item() < loss_stop:
                         break
@@ -191,8 +211,7 @@ class Model:
             param[grad.abs() < threshold] = 0
 
     def restore_params(self):
-        if self.__param_copy is not None:
-            self.model.load_state_dict(self.__param_copy)
+        self.model.load_state_dict(torch.load(".model.pt"))
 
     def visualize(self, chars):
         """

@@ -45,8 +45,23 @@ def main(eq_thresh=1e-2):
     m.generate_point_mask()
     m.mask_point(DATA[0])  # only train 10% of the parameters on this point
     m.train(DATA, 300)
-    thresholds = np.linspace(0, 0.05, 1000)
 
+    # verify that the model hasn't memorized the params if we mask it
+    print("Predicting using the full model:")
+    with torch.no_grad():
+        print(f"logprob of DATA[0]: {m.logprob(DATA[0])}")
+        print(f"logprob of DATA[1]: {m.logprob(DATA[1])}")
+        print(f"logprob of <s>aaaaaaaaaa</s>: {m.logprob('<s>aaaaaaaaaa</s>')}")
+    print("Hiding the coefficients that saw DATA[0]:")
+    with torch.no_grad():
+        for param, mask in zip(m.model.parameters(), m.mask):
+            param *= 1 - mask
+        print(f"logprob of DATA[0]: {m.logprob(DATA[0])}")
+        print(f"logprob of DATA[1]: {m.logprob(DATA[1])}")
+        print(f"logprob of <s>aaaaaaaaaa</s>: {m.logprob('<s>aaaaaaaaaa</s>')}")
+    m.restore_params()
+
+    thresholds = np.linspace(0, 0.05, 1000)
     seqs = [DATA[0], DATA[1]]
     # get a few out-of-distribution points
     for entropy in [0, 0.25, 0.75, 1]:
