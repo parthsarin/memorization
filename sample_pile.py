@@ -6,6 +6,7 @@ Samples paragraphs from the Pile, uniformly across different EM values and
 saves them to a file.
 """
 from transformers import AutoModelForCausalLM, AutoTokenizer
+from datasets import load_dataset
 import argparse
 from collections import defaultdict
 import numpy as np
@@ -72,7 +73,7 @@ def sample_from_article(article, model, tokenizer, aggregate=False):
 
 def main(args):
     # load the pile dataset and model
-    # pile = load_dataset("EleutherAI/the_pile_deduplicated")
+    pile = load_dataset("EleutherAI/the_pile_deduplicated")
     tokenizer = AutoTokenizer.from_pretrained(args.model)
     tokenizer.pad_token = tokenizer.eos_token
     model = AutoModelForCausalLM.from_pretrained(args.model)
@@ -84,7 +85,7 @@ def main(args):
     for _ in range(args.max_pile_samples):
         sample = pile["train"][int(pile["train"].num_rows * np.random.rand())]
         paragraphs, num_correct, generations, expected = sample_from_article(
-            sample["text"], model, tokenizer
+            sample["text"], model, tokenizer, aggregate=True
         )
 
         for p, em, g, ex in zip(paragraphs, num_correct, generations, expected):
