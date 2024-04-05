@@ -4,3 +4,6 @@ numpy
 matplotlib
 seaborn
 datasets
+news-please
+lxml[html_clean]
+feedparser
