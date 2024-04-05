@@ -1,5 +1,6 @@
-pytorch
+torch
 transformers
 numpy
 matplotlib
 seaborn
+datasets
