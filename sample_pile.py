@@ -84,9 +84,12 @@ def main(args):
     samples_per_em = defaultdict(int)
     for _ in range(args.max_pile_samples):
         sample = pile["train"][int(pile["train"].num_rows * np.random.rand())]
-        paragraphs, num_correct, generations, expected = sample_from_article(
-            sample["text"], model, tokenizer, aggregate=True
-        )
+        try:
+            paragraphs, num_correct, generations, expected = sample_from_article(
+                sample["text"], model, tokenizer, aggregate=True
+            )
+        except Exception:
+            continue
 
         for p, em, g, ex in zip(paragraphs, num_correct, generations, expected):
             if samples_per_em[em] < args.samples_per_em:
@@ -126,9 +129,12 @@ def main(args):
         if not text:
             continue
 
-        paragraphs, num_correct, generations, expected = sample_from_article(
-            text, model, tokenizer, aggregate=True
-        )
+        try:
+            paragraphs, num_correct, generations, expected = sample_from_article(
+                text, model, tokenizer, aggregate=True
+            )
+        except Exception:
+            continue
 
         for p, em, g, ex in zip(paragraphs, num_correct, generations, expected):
             if samples_per_em[em] < args.samples_per_em:
