@@ -65,9 +65,8 @@ class PrefixLearner:
         embeddings = []
 
         for prefix_len in range(min_recall_tokens, max_recall_tokens + 1):
-            prefix = torch.randn(1, prefix_len, self.embedding_dim)
+            prefix = torch.randn(1, prefix_len, self.embedding_dim, device=device)
             prefix = nn.Parameter(prefix)
-            prefix = prefix.to(device)
 
             # learn the prefix with backpropagation
             opt = torch.optim.Adam([prefix], lr=1e-3)
