@@ -107,8 +107,8 @@ class PrefixLearner:
 
             # generate the rest of the sequence
             generation = self.model.generate(
-                inputs_embeds=prefix,
-                attention_mask=torch.ones(1, prefix_len),
+                inputs_embeds=prefix.to(device),
+                attention_mask=torch.ones(1, prefix_len).to(device),
                 max_length=prefix_len + target_tokens.size(1),
                 num_return_sequences=1,
                 do_sample=False,
