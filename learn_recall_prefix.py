@@ -13,6 +13,8 @@ import json
 import random
 import pickle
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 @dataclass_json
 @dataclass
@@ -53,8 +55,10 @@ class PrefixLearner:
         # get the embeddings of the target
         raw_target = target
         target_tokens = self.tokenizer(target, return_tensors="pt")["input_ids"]
+        target_tokens = target_tokens.to(device)
         max_recall_tokens = min(max_recall_tokens, target_tokens.size(1) + 4)
         target = self.embeddings(target_tokens)
+        target = target.to(device)
 
         log = []
         embeddings = []
@@ -62,6 +66,7 @@ class PrefixLearner:
         for prefix_len in range(min_recall_tokens, max_recall_tokens + 1):
             prefix = torch.randn(1, prefix_len, self.embedding_dim)
             prefix = nn.Parameter(prefix)
+            prefix = prefix.to(device)
 
             # learn the prefix with backpropagation
             opt = torch.optim.Adam([prefix], lr=1e-3)
