@@ -53,7 +53,7 @@ class PrefixLearner:
         self,
         target,
         min_recall_tokens=5,
-        max_recall_tokens=20,
+        max_recall_tokens=15,
         verbose=True,
         epochs_per_pf_len=4_000,
     ) -> Tuple[List[torch.Tensor], List[PrefixLearnerLog]]:
@@ -88,7 +88,7 @@ class PrefixLearner:
                     logits.view(-1, logits.size(-1)), target_tokens.view(-1)
                 )
 
-                wandb.log({"prefix_len": prefix_len, "epoch": ep_idx, "loss": loss.item(), "target": raw_target})
+                wandb.log({"prefix_len": prefix_len, "epoch": ep_idx, "loss": loss.item(), "target": raw_target, "pl-target": f"{prefix_len}-{raw_target}"})
 
                 loss.backward()
                 opt.step()
@@ -113,7 +113,6 @@ class PrefixLearner:
                 num_return_sequences=1,
                 do_sample=False,
             )
-            generation = generation[0, prefix_len:]  # remove prefix
             generation = self.tokenizer.batch_decode(
                 generation, skip_special_tokens=True
             )[0]
