@@ -12,6 +12,11 @@ from typing import List, Tuple
 import json
 import random
 import pickle
+import wandb
+
+wandb.init(
+    project="learn-recall-prefix",
+)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -47,10 +52,10 @@ class PrefixLearner:
     def learn_prefix(
         self,
         target,
-        min_recall_tokens=1,
+        min_recall_tokens=5,
         max_recall_tokens=20,
         verbose=True,
-        epochs_per_pf_len=10_000,
+        epochs_per_pf_len=4_000,
     ) -> Tuple[List[torch.Tensor], List[PrefixLearnerLog]]:
         # get the embeddings of the target
         raw_target = target
@@ -70,7 +75,7 @@ class PrefixLearner:
 
             # learn the prefix with backpropagation
             opt = torch.optim.Adam([prefix], lr=1e-3)
-            for _ in range(epochs_per_pf_len):
+            for ep_idx in range(epochs_per_pf_len):
                 opt.zero_grad()
                 seq = torch.cat([prefix, target], dim=1)
                 logits = self.model(inputs_embeds=seq).logits
@@ -82,6 +87,8 @@ class PrefixLearner:
                 loss = F.cross_entropy(
                     logits.view(-1, logits.size(-1)), target_tokens.view(-1)
                 )
+
+                wandb.log({"prefix_len": prefix_len, "epoch": ep_idx, "loss": loss.item(), "target": raw_target})
 
                 loss.backward()
                 opt.step()
@@ -121,12 +128,14 @@ class PrefixLearner:
                     target=raw_target,
                 )
             )
+            wandb.log(log[-1].to_dict())
             embeddings.append(prefix)
 
             if verbose:
                 # show the loss and the closest prefix
                 print(
-                    f"[prefix len {prefix_len}] loss: {loss.item():.4f}, closest prefix: {repr(prefix_decoded)} (avg dist {avg_dist:.4f}), generation: {repr(generation)}, target: {repr(raw_target)}"
+                    f"[prefix len {prefix_len}] loss: {loss.item():.4f}, closest prefix: {repr(prefix_decoded)} (avg dist {avg_dist:.4f}), generation: {repr(generation)}, target: {repr(raw_target)}",
+                    flush=True
                 )
 
         return embeddings, log
