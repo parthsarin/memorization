@@ -29,10 +29,10 @@ class PrefixLearnerLog:
 
 class PrefixLearner:
     def __init__(self, model_name):
-        self.model = AutoModelForCausalLM.from_pretrained(model_name)
+        self.model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
-        self.embeddings = self.model.transformer.wte
+        self.embeddings = self.model.transformer.wte.to(device)
         self.embedding_dim = self.embeddings.embedding_dim
 
         for param in self.model.parameters():
@@ -56,6 +56,7 @@ class PrefixLearner:
         raw_target = target
         target_tokens = self.tokenizer(target, return_tensors="pt")["input_ids"]
         target_tokens = target_tokens.to(device)
+
         max_recall_tokens = min(max_recall_tokens, target_tokens.size(1) + 4)
         target = self.embeddings(target_tokens)
         target = target.to(device)
