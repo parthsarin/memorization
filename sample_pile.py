@@ -159,10 +159,12 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--model", type=str, default="EleutherAI/gpt-neo-125m")
-    parser.add_argument("--max-pile-samples", type=int, default=10_000)
-    parser.add_argument("--max-non-pile-samples", type=int, default=100)
-    parser.add_argument("--samples-per-em", type=int, default=10)
+    # parser.add_argument("--model", type=str, default="EleutherAI/gpt-neo-125m")
+    parser.add_argument("--model", type=str, default="EleutherAI/gpt-neo-2.7B")
+    # parser.add_argument("--max-pile-samples", type=float, default=10_000)
+    parser.add_argument("--max-pile-samples", type=float, default=0)
+    parser.add_argument("--max-non-pile-samples", type=float, default=100)
+    parser.add_argument("--samples-per-em", type=int, default=float('inf'))
     parser.add_argument("--output-file", type=str, default="pile_samples.json")
 
     args = parser.parse_args()
