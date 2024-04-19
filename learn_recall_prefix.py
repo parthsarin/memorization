@@ -88,11 +88,16 @@ class PrefixLearner:
                     logits.view(-1, logits.size(-1)), target_tokens.view(-1)
                 )
 
-                wandb.log({"prefix_len": prefix_len, "epoch": ep_idx, "loss": loss.item(), "target": raw_target, "pl-target": f"{prefix_len}-{raw_target}"})
-
                 loss.backward()
                 opt.step()
 
+            wandb.log(
+                {
+                    "prefix_len": prefix_len,
+                    "loss": loss.item(),
+                    "target": raw_target,
+                }
+            )
             # convert the prefix to tokens
             nearest = []
             dists = []
@@ -134,7 +139,7 @@ class PrefixLearner:
                 # show the loss and the closest prefix
                 print(
                     f"[prefix len {prefix_len}] loss: {loss.item():.4f}, closest prefix: {repr(prefix_decoded)} (avg dist {avg_dist:.4f}), generation: {repr(generation)}, target: {repr(raw_target)}",
-                    flush=True
+                    flush=True,
                 )
 
         return embeddings, log
@@ -151,8 +156,8 @@ if __name__ == "__main__":
     embeddings_logs = {}
 
     for sample in samples:
-        prefix = sample["prefix"]
-        target = sample["expected"]
+        prefix = None
+        target = sample["prefix"]
         em = sample["em"]
         origin = sample["origin"]
         greedy_completion = sample["completion"]
