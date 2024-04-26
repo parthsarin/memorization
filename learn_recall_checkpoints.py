@@ -70,6 +70,9 @@ def main(args):
                 with open(args.output_file, "w") as f:
                     json.dump(out, f, indent=2)
 
+            else:
+                print(f"Sample not memorized: {repr(p)} (EM: {em})")
+
 
 if __name__ == "__main__":
     import argparse

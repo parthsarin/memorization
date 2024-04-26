@@ -48,7 +48,8 @@ class PrefixLearner:
                 model_name, revision=revision
             )
         self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
-        self.embeddings = self.model.transformer.wte.to(device)
+        # self.embeddings = self.model.transformer.wte.to(device)
+        self.embeddings = self.model.gpt_neox.embed_in.to(device)
         self.embedding_dim = self.embeddings.embedding_dim
 
         for param in self.model.parameters():
