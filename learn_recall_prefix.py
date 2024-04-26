@@ -33,9 +33,20 @@ class PrefixLearnerLog:
 
 
 class PrefixLearner:
-    def __init__(self, model_name):
-        self.model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+    def __init__(self, model_name, revision=None):
+        self.model_name = model_name
+        self.step = revision
+
+        if not revision:
+            self.model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
+            self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+        else:
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_name, revision=revision
+            ).to(device)
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                model_name, revision=revision
+            )
         self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
         self.embeddings = self.model.transformer.wte.to(device)
         self.embedding_dim = self.embeddings.embedding_dim
@@ -96,6 +107,9 @@ class PrefixLearner:
                     "prefix_len": prefix_len,
                     "loss": loss.item(),
                     "target": raw_target,
+                    "model_name": f"{self.model_name}-{self.step}"
+                    if self.step
+                    else self.model_name,
                 }
             )
             # convert the prefix to tokens
