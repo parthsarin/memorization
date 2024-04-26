@@ -23,7 +23,7 @@ def evaluate_checkpoints(prefix, target):
     out = {}
     for pl, step in zip(PREFIX_LEARNERS, CHECKPOINT_IDXS):
         print(f"{'='*10} Evaluating checkpoint {step} {'='*10}")
-        learning_log = pl.learn_prefix(target)
+        emb, learning_log = pl.learn_prefix(target)
         out[step] = [l.to_dict() for l in learning_log]
     return out
 
@@ -38,6 +38,7 @@ def main(args):
 
     # sample from the pile
     out = []
+    mem_step_idx = 0
     while True:
         sample = pile["train"][int(N * np.random.rand())]
         try:
@@ -49,6 +50,7 @@ def main(args):
 
         for p, em, g, ex in zip(paragraphs, num_correct, generations, expected):
             if em >= EM_THRESH:
+                print()
                 print(f"Found a memorized sample: {repr(p)}")
                 print(f"* EM: {em}")
                 print(f"* Completion: {repr(g)}")
@@ -71,7 +73,10 @@ def main(args):
                     json.dump(out, f, indent=2)
 
             else:
-                print(f"Sample not memorized: {repr(p)} (EM: {em})")
+                mem_step_idx += 1
+                print(
+                    f"No memorized samples found after {mem_step_idx} samples\r", end=""
+                )
 
 
 if __name__ == "__main__":
