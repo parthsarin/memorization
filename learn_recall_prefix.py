@@ -65,7 +65,8 @@ class PrefixLearner:
         self,
         target,
         min_recall_tokens=5,
-        max_recall_tokens=15,
+        max_recall_tokens=30,
+        step_size=2,
         verbose=True,
         epochs_per_pf_len=4_000,
     ) -> Tuple[List[torch.Tensor], List[PrefixLearnerLog]]:
@@ -81,7 +82,7 @@ class PrefixLearner:
         log = []
         embeddings = []
 
-        for prefix_len in range(min_recall_tokens, max_recall_tokens + 1):
+        for prefix_len in range(min_recall_tokens, max_recall_tokens + 1, step_size):
             prefix = torch.randn(1, prefix_len, self.embedding_dim, device=device)
             prefix = nn.Parameter(prefix)
 
