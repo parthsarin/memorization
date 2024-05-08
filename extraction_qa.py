@@ -22,6 +22,7 @@ def make_prompt(question):
 if __name__ == "__main__":
     pl = PrefixLearner("EleutherAI/gpt-neo-125m")
     data = load_dataset("hails/mmlu_no_train", "all")
+    data = data["test"]
 
     qa_log = []
     for i, question in enumerate(data):
