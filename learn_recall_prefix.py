@@ -30,6 +30,7 @@ class PrefixLearnerLog:
     avg_dist: float
     generation: str
     target: str
+    logprob: float
 
 
 class PrefixLearner:
