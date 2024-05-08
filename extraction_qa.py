@@ -37,7 +37,7 @@ if __name__ == "__main__":
         print(f"* Question: {q}")
 
         embeddings, extraction_log = pl.learn_prefix(q)
-        d["extraction_log"] = extraction_log
+        d["extraction_log"] = [l.to_dict() for l in extraction_log]
 
         # then, see how well the model can answer the question
         prompt, answer = make_prompt(question)

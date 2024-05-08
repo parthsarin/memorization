@@ -104,12 +104,22 @@ class PrefixLearner:
                 loss.backward()
                 opt.step()
 
+                # pull out the logits corresponding to the targets
+                target_logits = logits[0, -target_tokens.size(1) :]
+                target_logits = target_logits.gather(
+                    1, target_tokens.view(-1, 1)
+                ).squeeze()
+
+                # add them together to get the probability of the target sequence
+                target_logprob = target_logits.sum()
+
                 wandb.log(
                     {
                         "prefix_len": prefix_len,
                         "loss": loss.item(),
                         "target": raw_target,
                         "epoch": ep_idx,
+                        "target_logprob": target_logprob.item(),
                         # "model_name": f"{self.model_name}-{self.step}"
                         # if self.step
                         # else self.model_name,
@@ -148,6 +158,7 @@ class PrefixLearner:
                     avg_dist=avg_dist,
                     generation=generation,
                     target=raw_target,
+                    logprob=target_logprob.item(),
                 )
             )
             wandb.log(log[-1].to_dict())
