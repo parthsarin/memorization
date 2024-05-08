@@ -47,8 +47,8 @@ class PrefixLearner:
             self.tokenizer = AutoTokenizer.from_pretrained(
                 model_name, revision=revision
             )
-        self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
-        # self.embeddings = self.model.transformer.wte.to(device)
+        # self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
+        self.embeddings = self.model.transformer.wte.to(device)
         self.embeddings = self.model.gpt_neox.embed_in.to(device)
         self.embedding_dim = self.embeddings.embedding_dim
 
@@ -104,16 +104,18 @@ class PrefixLearner:
                 loss.backward()
                 opt.step()
 
-            wandb.log(
-                {
-                    "prefix_len": prefix_len,
-                    "loss": loss.item(),
-                    "target": raw_target,
-                    "model_name": f"{self.model_name}-{self.step}"
-                    if self.step
-                    else self.model_name,
-                }
-            )
+                wandb.log(
+                    {
+                        "prefix_len": prefix_len,
+                        "loss": loss.item(),
+                        "target": raw_target,
+                        "epoch": ep_idx,
+                        # "model_name": f"{self.model_name}-{self.step}"
+                        # if self.step
+                        # else self.model_name,
+                    }
+                )
+
             # convert the prefix to tokens
             nearest = []
             dists = []

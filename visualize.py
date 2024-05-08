@@ -8,6 +8,7 @@ sns.set_theme(style="whitegrid")
 plt.ion()
 
 # get the data from the logs
+# learning_logs = json.load(open("out/learning_log_2_7b.json"))
 learning_logs = json.load(open("out/learning_log_125m.json"))
 
 # best loss for each EM
@@ -62,6 +63,7 @@ plt.errorbar(k[idx], v[idx, 0], yerr=v[idx, 1], marker="o", label="best loss")
 
 plt.xlabel("EM")
 plt.ylabel("loss")
+plt.savefig("em_pl_loss.png", dpi=300)
 plt.show()
 
 # line plot the best prefix length for each EM
