@@ -5,6 +5,7 @@ from datasets import load_dataset
 from learn_recall_prefix import PrefixLearner
 import json
 import torch
+import numpy as np
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -15,7 +16,7 @@ def make_prompt(question):
     for l, c in zip(choices, question["choices"]):
         prompt += f"{l}. {c}\n"
 
-    prompt += "\nAnswer: "
+    prompt += "\nAnswer:"
     return prompt, choices[question["answer"]]
 
 
@@ -23,9 +24,12 @@ if __name__ == "__main__":
     pl = PrefixLearner("EleutherAI/gpt-neo-125m")
     data = load_dataset("hails/mmlu_no_train", "all")
     data = data["test"]
+    N = len(data)
 
     qa_log = []
-    for i, question in enumerate(data):
+    # go in a random order
+    for i in np.random.permutation(N):
+        question = data[i]
         print(f"Evaluating question {i}")
         print("-" * 80)
 
@@ -48,9 +52,9 @@ if __name__ == "__main__":
         prompt = tokenizer(prompt, return_tensors="pt").to(device)
         completion = model(**prompt).logits.squeeze(0)[-1, :]
 
-        answer = tokenizer(answer).input_ids[0]
+        answer = tokenizer(f" {answer}").input_ids[0]
         d["answer_logits"] = {
-            a: completion[tokenizer(a).input_ids[0]].item() for a in "ABCDEFGH"
+            a: completion[tokenizer(f" {a}").input_ids[0]].item() for a in "ABCDEFGH"
         }
         print(f"* Answer logits: {d['answer_logits']}")
 
