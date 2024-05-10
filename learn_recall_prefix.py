@@ -118,12 +118,13 @@ class PrefixLearner:
 
                 # pull out the logits corresponding to the targets
                 target_logits = logits[0, -target_tokens.size(1) :]
-                target_logits = target_logits.gather(
+                target_logprobs = F.log_softmax(target_logits, dim=-1)
+                target_logprobs = target_logprobs.gather(
                     1, target_tokens.view(-1, 1)
                 ).squeeze()
 
                 # add them together to get the probability of the target sequence
-                target_logprob = target_logits.sum()
+                target_logprob = target_logprobs.sum()
 
                 if wandb_log:
                     wandb.log(
