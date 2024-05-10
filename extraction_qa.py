@@ -29,7 +29,7 @@ if __name__ == "__main__":
     qa_log = []
     # go in a random order
     for i in np.random.permutation(N):
-        question = data[i]
+        question = data[int(i)]
         print(f"Evaluating question {i}")
         print("-" * 80)
 
