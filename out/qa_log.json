@@ -3614,5 +3614,808 @@
       "H": -12.352604866027832
     },
     "correct_answer_logit": -11.083728790283203
+  },
+  {
+    "q": {
+      "question": "Which of the following did not emerge as a trend of the defence trade in the 20th century?",
+      "subject": "security_studies",
+      "choices": [
+        "The arms trade shifts from being a private to a government controlled enterprise.",
+        "An increase in the defence trade.",
+        "A decrease in the arms trade.",
+        "A growth in the number and variety of weapons traded."
+      ],
+      "answer": 2
+    },
+    "extraction_log": [
+      {
+        "prefix_len": 5,
+        "closest_prefix_str": " no I I per I",
+        "loss": 6.13826847076416,
+        "avg_dist": 28.186812973022462,
+        "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n \ufffd \ufffd \ufffd \ufffd",
+        "target": "Which of the following did not emerge as a trend of the defence trade in the 20th century?",
+        "logprob": -462.66595458984375
+      },
+      {
+        "prefix_len": 7,
+        "closest_prefix_str": " or ( I not a for who",
+        "loss": 7.667492866516113,
+        "avg_dist": 28.3017520904541,
+        "generation": "\u044c\n\ufffd\n\ufffd\n ( ( ( ( ( ( ( ( ( (\n\ufffd true (",
+        "target": "Which of the following did not emerge as a trend of the defence trade in the 20th century?",
+        "logprob": -497.8005065917969
+      },
+      {
+        "prefix_len": 9,
+        "closest_prefix_str": " S and \" in the out not \" all",
+        "loss": 9.362099647521973,
+        "avg_dist": 28.487109714084202,
+        "generation": " *\n (\n (\n ( (\n\ufffd ( ( ( ( ( ( ( ( ( (",
+        "target": "Which of the following did not emerge as a trend of the defence trade in the 20th century?",
+        "logprob": -488.92889404296875
+      },
+      {
+        "prefix_len": 11,
+        "closest_prefix_str": " * as as a in I in \" my as he",
+        "loss": 5.994204521179199,
+        "avg_dist": 28.509319999001242,
+        "generation": " * true ( ( (\ufffd\ufffd { same ( *\n\n\n\n S (\n\ufffd (",
+        "target": "Which of the following did not emerge as a trend of the defence trade in the 20th century?",
+        "logprob": -406.98223876953125
+      },
+      {
+        "prefix_len": 13,
+        "closest_prefix_str": " if I in I I as S I he a no for and",
+        "loss": 3.5667431354522705,
+        "avg_dist": 28.57845350412222,
+        "generation": "Which \" off same the than*>:\n\n\n\nregor\ufffd\n>:\ufffd \ufffd\n\n",
+        "target": "Which of the following did not emerge as a trend of the defence trade in the 20th century?",
+        "logprob": -353.6531066894531
+      },
+      {
+        "prefix_len": 15,
+        "closest_prefix_str": " he I one he \" H he for \" I \" I or the,",
+        "loss": 2.5535922050476074,
+        "avg_dist": 28.364922078450522,
+        "generation": "<? \n\n>:\n\n\n\n\n\n>:\n\n\n\n\n\n\n\n",
+        "target": "Which of the following did not emerge as a trend of the defence trade in the 20th century?",
+        "logprob": -303.42926025390625
+      },
+      {
+        "prefix_len": 17,
+        "closest_prefix_str": " \" I they the all in me on the I In I but In me I I",
+        "loss": 5.601245403289795,
+        "avg_dist": 28.40347323698156,
+        "generation": "\ufffd\ufffd\n as the\n\n\n\ufffd\n in\ufffd I\ufffd I\n general as * same",
+        "target": "Which of the following did not emerge as a trend of the defence trade in the 20th century?",
+        "logprob": -423.03338623046875
+      },
+      {
+        "prefix_len": 19,
+        "closest_prefix_str": " I all it he \" or out \" with He and it or out had one, \" as",
+        "loss": 5.421249866485596,
+        "avg_dist": 28.566669464111328,
+        "generation": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
+        "target": "Which of the following did not emerge as a trend of the defence trade in the 20th century?",
+        "logprob": -438.79193115234375
+      },
+      {
+        "prefix_len": 21,
+        "closest_prefix_str": " in to and the all un as he I in \" out I me on She \" for he to \"",
+        "loss": 5.432857036590576,
+        "avg_dist": 28.353993188767205,
+        "generation": ")'\ufffd same the same as same as same as same as same as\n\n\n\n== following",
+        "target": "Which of the following did not emerge as a trend of the defence trade in the 20th century?",
+        "logprob": -411.0131530761719
+      },
+      {
+        "prefix_len": 23,
+        "closest_prefix_str": " the P I I I all first to I I \" and I I to in I I \" I \" for I",
+        "loss": 2.884645938873291,
+        "avg_dist": 28.263175300929856,
+        "generation": "\ufffd )] * \n.>> (\n\n\ufffd\n\ufffd\n\n}\ufffd\n\n\n\n",
+        "target": "Which of the following did not emerge as a trend of the defence trade in the 20th century?",
+        "logprob": -325.745849609375
+      }
+    ],
+    "answer_logits": {
+      "A": -9.093109130859375,
+      "B": -11.06781005859375,
+      "C": -12.15737533569336,
+      "D": -11.40510082244873,
+      "E": -12.79773235321045,
+      "F": -13.381421089172363,
+      "G": -13.474625587463379,
+      "H": -11.548076629638672
+    },
+    "correct_answer_logit": -12.15737533569336
+  },
+  {
+    "q": {
+      "question": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+      "subject": "moral_scenarios",
+      "choices": [
+        "Wrong, Wrong",
+        "Wrong, Not wrong",
+        "Not wrong, Wrong",
+        "Not wrong, Not wrong"
+      ],
+      "answer": 3
+    },
+    "extraction_log": [
+      {
+        "prefix_len": 5,
+        "closest_prefix_str": " so the I all me",
+        "loss": 10.412613868713379,
+        "avg_dist": 28.93425178527832,
+        "generation": " \ufffd *\ufffd \ufffd\n\n\n\n\n\n *\ufffd \ufffd\n\n as\n (\ufffd\u0019 *\n general\n general (\n full {\n:\nPLIED\n general\n general\n:\n )] (\n <\ufffd \ufffd \ufffd\n)] (\n < * (\n <\n <\n {\n {\n < * ( (",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1538.0147705078125
+      },
+      {
+        "prefix_len": 7,
+        "closest_prefix_str": " I all and at for I me",
+        "loss": 9.736220359802246,
+        "avg_dist": 28.483379364013672,
+        "generation": " \ufffd ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( (\ufffd *\n\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\ufffd\n *\n *\n *\n\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd *\n *\n \ufffd ( ( ( (\ufffd\n * \ufffd (",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1498.552490234375
+      },
+      {
+        "prefix_len": 9,
+        "closest_prefix_str": " as in me I in for I As he",
+        "loss": 9.90585708618164,
+        "avg_dist": 28.380536185370552,
+        "generation": "\ufffd * *\n {\ufffd\n\n\n\n\n\ufffd\ufffd\ufffd { *\ufffd (PLIED (\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd [ (:]\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1562.056884765625
+      },
+      {
+        "prefix_len": 11,
+        "closest_prefix_str": " \" as my I I he not I I first out",
+        "loss": 8.806282997131348,
+        "avg_dist": 28.066938226873223,
+        "generation": "\n * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n * * * * * * * * * * * * * * * *\n * *\n *\n *\ufffd\n *\n",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1313.628173828125
+      },
+      {
+        "prefix_len": 13,
+        "closest_prefix_str": " the I but I \" as when a I I it and I",
+        "loss": 10.328700065612793,
+        "avg_dist": 28.37548226576585,
+        "generation": " *\ufffd as \ufffd { \ufffd { *\n\ufffd\n\n\n \ufffd\ufffd * \ufffd\n\n \ufffd * \ufffd\n \ufffd\n \ufffd\n \ufffd\n \ufffd\n \ufffd \ufffd \ufffd\n \ufffd\n \ufffd\n \ufffd\n\ufffd\n \ufffd\ufffd\n\ufffd\n \ufffd\u2023 same\ufffd { \ufffd\ufffd\n \ufffd\ufffd\ufffd\n \ufffd * \ufffd { * \ufffd",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1618.5467529296875
+      },
+      {
+        "prefix_len": 15,
+        "closest_prefix_str": " time \" he my in no that I when I in I so he all",
+        "loss": 8.840012550354004,
+        "avg_dist": 28.158964029947917,
+        "generation": " * * * * * * * * * *\n\n [ free\n * *PLIED\n ( *\n ( *\n\n [ * *\n\n\n $\n * *\n *PLIED\n $\n * *\n * *\n * * *\n\n\n\n\n *\n *\n\ufffd\n\ufffd\n\ufffd ( *",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1441.9180908203125
+      },
+      {
+        "prefix_len": 17,
+        "closest_prefix_str": " me in \" a it in the I it \" \" it I it I for a",
+        "loss": 9.129790306091309,
+        "avg_dist": 28.27921138090246,
+        "generation": " general\n\ufffd \ufffd\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ufffd\ufffd \ufffd\n\n\n\n\ufffd\n\n\n\n\n\ufffd \ufffd\n\n\n\n\n\n\nPLIED\n\n\nPLIED\n\n\ufffd\n",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1445.50732421875
+      },
+      {
+        "prefix_len": 19,
+        "closest_prefix_str": " I in but what in I he down _ in and I in the and on at \" the",
+        "loss": 6.7695536613464355,
+        "avg_dist": 28.313047710217926,
+        "generation": "\n\n\n\n\n\n\n\n\n\n $ * \ufffd \ufffd * \ufffd\n\n\n\n\n $\ufffd *\ufffd *\n\n\n\n *>] \"\ufffd\ufffd\n *\ufffd\ufffd\ufffd (\ufffd \ufffd\n *\ufffd\ufffd\n\ufffd\ufffd\ufffd\n\ufffd\ufffd \ufffd\n\ufffd \ufffd\n *\ufffd\ufffd\ufffd\ufffd\n *\ufffd",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1217.618896484375
+      },
+      {
+        "prefix_len": 21,
+        "closest_prefix_str": " I one all in a the \" I one all out I for I all out in a so C I",
+        "loss": 10.603018760681152,
+        "avg_dist": 28.439342680431547,
+        "generation": "\n\n\n\n \" \" \"\n \"\n \" true\n \" {* same\n * * * * full as same as {*\n { *\n \" true\n \" true\n )]\n as\ufffd- as} as $ asADRA \ufffd [\n { { { following\n { as { as { { { { true\ufffd {",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1607.02001953125
+      },
+      {
+        "prefix_len": 23,
+        "closest_prefix_str": " it I a I I un as T so her so in out so all as in all in in an he in",
+        "loss": 9.542264938354492,
+        "avg_dist": 28.349931551062543,
+        "generation": " *\n\ufffd\ufffd\ufffd\ufffd *\ufffd *\ufffd *\ufffd\ufffd\ufffd\ufffd\ufffd * (\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd * (\ufffd\ufffd\ufffd *\n \ufffd\ufffd\ufffd\ufffd *\n *\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd>] * (\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd *\n \ufffd\u2024 *\n *\ufffd",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1465.87255859375
+      },
+      {
+        "prefix_len": 25,
+        "closest_prefix_str": " but he \" new _ her I and as \" on I as out over I He I on I I it all I in",
+        "loss": 8.083024024963379,
+        "avg_dist": 28.182547836303712,
+        "generation": " (\n\n\n\n \" full (\n\n \"\n\n\n\n\n\n\ufffd *\n\ufffd\n\n\ufffd\n * *\n\n\ufffd\n *\n\n \ufffd\n\ufffd\n\n\n (\n (\n\n (\n (\ufffd *\n\n\n\n\ufffd\ufffd \ufffd\n\n\ufffd\n \ufffd\n (>] \ufffd\n",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1281.9342041015625
+      },
+      {
+        "prefix_len": 27,
+        "closest_prefix_str": " I more it I \", I on in \" \" as in the new one I the in in he C as \" he a I",
+        "loss": 9.125179290771484,
+        "avg_dist": 28.458843372486257,
+        "generation": " *:]\n\ufffd (_\n \n\n\ufffd\n\ufffd\n\n\ufffd\n\ufffd\n\ufffd\n\n *\n- ( *\n\ufffd\n *\ufffd\n *\ufffd\n *\n *\n * \ufffd {\ufffd\n\u0435 *\ufffd\n *\n *\n *\n *\n *\ufffd\n *:] (\n *\n\n *",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1432.848876953125
+      },
+      {
+        "prefix_len": 29,
+        "closest_prefix_str": " I the to as I but in as \" but in had \" in \" I \" Thomas I \" that I \" \" the the other he one",
+        "loss": 7.408080577850342,
+        "avg_dist": 28.36374466994713,
+        "generation": "\n * * ( * * ( * ( * * * ( * ( * * * (>]\ufffd (\n\ufffd ( * * * * * * *\n\ufffd (>]\ufffd ( * ( *\n * (>]\ufffd * * * * * * * * * *\n * * * * * * * ( sub *",
+        "target": "For which of these two scenarios does the main character (who uses I/me/my) do something clearly morally wrong, according to ordinary moral standards in the US as of 2020? Scenario 1 | While driving through a terrible storm I paid attention to the road. Scenario 2 | I tore down the birthday decorations from yesterday.",
+        "logprob": -1340.23828125
+      }
+    ],
+    "answer_logits": {
+      "A": -9.561544418334961,
+      "B": -11.425228118896484,
+      "C": -11.830642700195312,
+      "D": -11.376253128051758,
+      "E": -12.33816909790039,
+      "F": -13.669607162475586,
+      "G": -13.294015884399414,
+      "H": -11.987481117248535
+    },
+    "correct_answer_logit": -11.376253128051758
+  },
+  {
+    "q": {
+      "question": "When you scale up an object to 3 times its linear size, the surface area increases by",
+      "subject": "conceptual_physics",
+      "choices": [
+        "3 and the volume by 9.",
+        "3 and the volume by 27.",
+        "9 and the volume by 27.",
+        "4 and the volume by 8."
+      ],
+      "answer": 2
+    },
+    "extraction_log": [
+      {
+        "prefix_len": 5,
+        "closest_prefix_str": " I in all I you",
+        "loss": 6.654064655303955,
+        "avg_dist": 28.784716033935545,
+        "generation": " * * (\n\n\n\n\n\n\n\n\n\n\n\n \ufffd \ufffd \ufffd",
+        "target": "When you scale up an object to 3 times its linear size, the surface area increases by",
+        "logprob": -404.66510009765625
+      },
+      {
+        "prefix_len": 7,
+        "closest_prefix_str": " S all \" so for I I",
+        "loss": 5.0160017013549805,
+        "avg_dist": 28.717822756086075,
+        "generation": "\ufffd\n * ( * (\n (\n (\n (\n (\n (\n (",
+        "target": "When you scale up an object to 3 times its linear size, the surface area increases by",
+        "logprob": -390.8213806152344
+      },
+      {
+        "prefix_len": 9,
+        "closest_prefix_str": " my the he I all \" for all I",
+        "loss": 5.121449947357178,
+        "avg_dist": 28.51402982076009,
+        "generation": " *\n * * * * same *\ufffd $ *\n *\n *\n *\n",
+        "target": "When you scale up an object to 3 times its linear size, the surface area increases by",
+        "logprob": -394.2032470703125
+      },
+      {
+        "prefix_len": 11,
+        "closest_prefix_str": " the my I O I I as new it I in",
+        "loss": 5.434431076049805,
+        "avg_dist": 28.15872435136275,
+        "generation": "\ufffd\n\ufffd\n *\n\ufffd *\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\nPLIED ( (",
+        "target": "When you scale up an object to 3 times its linear size, the surface area increases by",
+        "logprob": -385.6094970703125
+      },
+      {
+        "prefix_len": 13,
+        "closest_prefix_str": " I I P and in and R one in I E I the",
+        "loss": 4.67972993850708,
+        "avg_dist": 28.368929642897385,
+        "generation": "\ufffd \" ( one\n\n\n * * *\n *\n\n\n\n\n\n",
+        "target": "When you scale up an object to 3 times its linear size, the surface area increases by",
+        "logprob": -413.70849609375
+      },
+      {
+        "prefix_len": 15,
+        "closest_prefix_str": " in the I John I as all I \" I as no all so as",
+        "loss": 5.0004401206970215,
+        "avg_dist": 28.243306986490886,
+        "generation": "\ufffd\n\ufffd\n\ufffd *\ufffd *\ufffd *\ufffd *\n\n\n\n\n\n",
+        "target": "When you scale up an object to 3 times its linear size, the surface area increases by",
+        "logprob": -411.09307861328125
+      },
+      {
+        "prefix_len": 17,
+        "closest_prefix_str": " I in C I at in It I I in but * he I it my so",
+        "loss": 4.0755791664123535,
+        "avg_dist": 28.343100491692038,
+        "generation": " *\n ( ( sub ( *\n\n *\n *\n *\n *\n (",
+        "target": "When you scale up an object to 3 times its linear size, the surface area increases by",
+        "logprob": -338.586669921875
+      },
+      {
+        "prefix_len": 19,
+        "closest_prefix_str": " at ( long on I to God I one C that her a it all I \" I non",
+        "loss": 3.5752153396606445,
+        "avg_dist": 28.33723208778783,
+        "generation": " when\n\n\n set do \" one do $- _ as $\n non same\ufffd",
+        "target": "When you scale up an object to 3 times its linear size, the surface area increases by",
+        "logprob": -334.7565612792969
+      },
+      {
+        "prefix_len": 21,
+        "closest_prefix_str": " he, an I I I in P I the me in that as I, me I I as all",
+        "loss": 2.0442681312561035,
+        "avg_dist": 28.25796835763114,
+        "generation": " when new \" \ufffd \ufffd \ufffd \ufffd (\n full\n \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd",
+        "target": "When you scale up an object to 3 times its linear size, the surface area increases by",
+        "logprob": -382.10784912109375
+      }
+    ],
+    "answer_logits": {
+      "A": -10.447624206542969,
+      "B": -12.48689079284668,
+      "C": -12.956003189086914,
+      "D": -12.194738388061523,
+      "E": -14.082528114318848,
+      "F": -14.509919166564941,
+      "G": -13.853631019592285,
+      "H": -13.597551345825195
+    },
+    "correct_answer_logit": -12.956003189086914
+  },
+  {
+    "q": {
+      "question": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+      "subject": "high_school_biology",
+      "choices": [
+        "Peroxisomes, mitochondria, and ribosomes",
+        "Peroxisomes, mitochondria, and lysosomes",
+        "Peroxisomes, mitochondria, and Golgi apparatus",
+        "Lysosomes, chloroplasts, and ribosomes"
+      ],
+      "answer": 0
+    },
+    "extraction_log": [
+      {
+        "prefix_len": 5,
+        "closest_prefix_str": " he I I he to",
+        "loss": 8.716679573059082,
+        "avg_dist": 28.45369186401367,
+        "generation": " ( (\ufffd ( ( ( ( * * * *\ufffd * * * * * * *\ufffd * * * * * * * *",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -694.11181640625
+      },
+      {
+        "prefix_len": 7,
+        "closest_prefix_str": " over Thomas I \" the as on",
+        "loss": 8.688626289367676,
+        "avg_dist": 28.792469842093332,
+        "generation": " * * * * * * * * * * (\n ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( (",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -746.5875854492188
+      },
+      {
+        "prefix_len": 9,
+        "closest_prefix_str": " \" \" all I in \" I the \"",
+        "loss": 7.134613513946533,
+        "avg_dist": 28.29284201727973,
+        "generation": "\ufffd\ufffd\ufffd * * * * * * * * * * * * * )] (\ufffd\"><\n\n\n * same\n *\n",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -580.76806640625
+      },
+      {
+        "prefix_len": 11,
+        "closest_prefix_str": " or and in I and in I in he in I",
+        "loss": 6.672889232635498,
+        "avg_dist": 28.669938174161043,
+        "generation": " (\n \ufffd\n\n \" * * * * * * * * * * * * * * *\n \ufffd\n (\n \ufffd\n",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -632.4305419921875
+      },
+      {
+        "prefix_len": 13,
+        "closest_prefix_str": " I- her as I I s out I one one not \"",
+        "loss": 8.048544883728027,
+        "avg_dist": 28.413555732140175,
+        "generation": "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd *\n\ufffd (\n\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\n",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -650.29736328125
+      },
+      {
+        "prefix_len": 15,
+        "closest_prefix_str": " a for It the for \" I P I I her one in Dr all",
+        "loss": 4.909148693084717,
+        "avg_dist": 28.227357737223308,
+        "generation": " general ( $\ufffd same one\n  one\ufffd same\ufffd\n\n\ufffd one\n\n\n\n\n\n\n\n\n\n\n in",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -601.7393188476562
+      },
+      {
+        "prefix_len": 17,
+        "closest_prefix_str": " for on so but Jack or \" in a you the St or the a in in",
+        "loss": 3.8013241291046143,
+        "avg_dist": 28.41184919020709,
+        "generation": "\n following\n following\n following\n following\ufffd same\ufffd same * same *\ufffd same\ufffd same\ufffd same\ufffd same\ufffd same\ufffd same full",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -548.543701171875
+      },
+      {
+        "prefix_len": 19,
+        "closest_prefix_str": " all \" un I in I no I a I he when it all I \" he I on",
+        "loss": 6.5588812828063965,
+        "avg_dist": 28.328393233449834,
+        "generation": "\n\n\ufffd\n\ufffd\n\n\ufffd\n\ufffd\n\n \ufffd * * * (\ufffd * *>] \ufffd\n\ufffd * (\n\ufffd",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -625.0496826171875
+      },
+      {
+        "prefix_len": 21,
+        "closest_prefix_str": " \" as so I the the \" non other that in I I in he my an other in He in",
+        "loss": 6.6497979164123535,
+        "avg_dist": 28.23847207568941,
+        "generation": "\n *\n *\n *\n *\n * three ( *\ufffd\ufffd\ufffd *\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -666.6150512695312
+      },
+      {
+        "prefix_len": 23,
+        "closest_prefix_str": " Sh as, \" we I re so and the that to I \" high in \" so but I \" C the",
+        "loss": 6.441756248474121,
+        "avg_dist": 28.391444662342902,
+        "generation": " use { (\n}\n\n *\n\n}\nPLIED (\nPLIED ( * * * * *PLIED (\n}\n *",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -659.2644653320312
+      },
+      {
+        "prefix_len": 25,
+        "closest_prefix_str": " in he what He and that I as P \" if \" so on I he In I one in as as in a out",
+        "loss": 5.69067907333374,
+        "avg_dist": 28.286872940063475,
+        "generation": "\ufffd same { in (\n\ufffd\n full\ufffd\n (\n (\n ( \n\ufffd same\n full full\n full\n>] body",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -544.8795776367188
+      },
+      {
+        "prefix_len": 27,
+        "closest_prefix_str": " I no at a to I I \" so no \" I \" P I it a as I so that I I as I I it",
+        "loss": 5.780429840087891,
+        "avg_dist": 28.200521257188583,
+        "generation": "\n\ufffd\n\n\ufffd\n ( \"\n ( in\n\ufffd \"\ufffd \"\ufffd \"\ufffd\n\ufffd ( \"\ufffd (\ufffd (\ufffd",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -645.4066162109375
+      },
+      {
+        "prefix_len": 29,
+        "closest_prefix_str": " in so and the not I he I which \" but not and I I I the I I I man \" P at non I I M He",
+        "loss": 4.401602745056152,
+        "avg_dist": 28.230578915826207,
+        "generation": " * same use \ufffd \"\ufffd in the\u0435 \" same {\n {\n \" \" same {\n \" same \" {\n\n\n *",
+        "target": "In cells, which of the following can catalyze reactions involving hydrogen peroxide, provide cellular energy, and make proteins, in that order?",
+        "logprob": -572.7997436523438
+      }
+    ],
+    "answer_logits": {
+      "A": -11.329397201538086,
+      "B": -13.463059425354004,
+      "C": -12.86600399017334,
+      "D": -12.535476684570312,
+      "E": -14.321756362915039,
+      "F": -14.698921203613281,
+      "G": -14.281351089477539,
+      "H": -12.604043960571289
+    },
+    "correct_answer_logit": -11.329397201538086
+  },
+  {
+    "q": {
+      "question": "A likely cause of falling Treasury bond prices might be",
+      "subject": "high_school_macroeconomics",
+      "choices": [
+        "expansionary monetary policy.",
+        "contractionary monetary policy.",
+        "a depreciating dollar.",
+        "fiscal policy designed to reduce the budget deficit."
+      ],
+      "answer": 1
+    },
+    "extraction_log": [
+      {
+        "prefix_len": 5,
+        "closest_prefix_str": " I I I I that",
+        "loss": 10.804574966430664,
+        "avg_dist": 28.281488037109376,
+        "generation": "\ufffd *\n\ufffd\n * * * * *",
+        "target": "A likely cause of falling Treasury bond prices might be",
+        "logprob": -225.82821655273438
+      },
+      {
+        "prefix_len": 7,
+        "closest_prefix_str": " so as I \" in non out",
+        "loss": 6.495290279388428,
+        "avg_dist": 28.14726938520159,
+        "generation": "\n \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd \ufffd",
+        "target": "A likely cause of falling Treasury bond prices might be",
+        "logprob": -159.2002716064453
+      },
+      {
+        "prefix_len": 9,
+        "closest_prefix_str": " _ one me as P he me on and",
+        "loss": 8.681344985961914,
+        "avg_dist": 28.32193925645616,
+        "generation": " *.?\n about \ufffd {\ufffd \ufffd (\n",
+        "target": "A likely cause of falling Treasury bond prices might be",
+        "logprob": -187.102783203125
+      },
+      {
+        "prefix_len": 11,
+        "closest_prefix_str": ", he two I them \" in non he I to",
+        "loss": 8.509949684143066,
+        "avg_dist": 28.453427054665305,
+        "generation": "\ufffd *\n *\ufffd ( (\n *\ufffd",
+        "target": "A likely cause of falling Treasury bond prices might be",
+        "logprob": -205.98785400390625
+      },
+      {
+        "prefix_len": 13,
+        "closest_prefix_str": " I I in Dr a he he as had I it Mr He",
+        "loss": 7.854396820068359,
+        "avg_dist": 28.279991736778847,
+        "generation": "\n\n\n\n\n\n\n\n\n\n",
+        "target": "A likely cause of falling Treasury bond prices might be",
+        "logprob": -179.11508178710938
+      }
+    ],
+    "answer_logits": {
+      "A": -7.856223106384277,
+      "B": -9.96350383758545,
+      "C": -10.827540397644043,
+      "D": -10.931353569030762,
+      "E": -11.657200813293457,
+      "F": -12.572118759155273,
+      "G": -13.032718658447266,
+      "H": -11.546786308288574
+    },
+    "correct_answer_logit": -9.96350383758545
+  },
+  {
+    "q": {
+      "question": "Which of the following would be considered contractionary monetary policy?",
+      "subject": "high_school_macroeconomics",
+      "choices": [
+        "The purchase of bonds",
+        "The sale of bonds",
+        "An increase in taxes",
+        "An increase in government spending"
+      ],
+      "answer": 1
+    },
+    "extraction_log": [
+      {
+        "prefix_len": 5,
+        "closest_prefix_str": " so I the as that",
+        "loss": 7.097472667694092,
+        "avg_dist": 28.005215072631835,
+        "generation": "Which\n I\n\n\n\n\n\n\n\n\n",
+        "target": "Which of the following would be considered contractionary monetary policy?",
+        "logprob": -228.1352081298828
+      },
+      {
+        "prefix_len": 7,
+        "closest_prefix_str": " for he but it or \" did",
+        "loss": 7.20801305770874,
+        "avg_dist": 28.180304391043528,
+        "generation": " {\n\ufffd\n:] * (\n:] * ( (",
+        "target": "Which of the following would be considered contractionary monetary policy?",
+        "logprob": -219.11509704589844
+      },
+      {
+        "prefix_len": 9,
+        "closest_prefix_str": " my I the \" by I \" I a",
+        "loss": 8.967172622680664,
+        "avg_dist": 28.329053666856552,
+        "generation": "\ufffd *\n\n (_'\nPLIED * * *",
+        "target": "Which of the following would be considered contractionary monetary policy?",
+        "logprob": -236.197998046875
+      },
+      {
+        "prefix_len": 11,
+        "closest_prefix_str": " and out I \" one for you he I not C",
+        "loss": 4.825943470001221,
+        "avg_dist": 28.66903894597834,
+        "generation": " time (\ufffd\n\ufffd \ufffd\ufffd\n\n\ufffd\n\n",
+        "target": "Which of the following would be considered contractionary monetary policy?",
+        "logprob": -170.21044921875
+      },
+      {
+        "prefix_len": 13,
+        "closest_prefix_str": " \" I non a as B in so P on all \" \"",
+        "loss": 3.3858039379119873,
+        "avg_dist": 28.35239028930664,
+        "generation": "if\ufffd do * * \" ( inPLIED ( in same",
+        "target": "Which of the following would be considered contractionary monetary policy?",
+        "logprob": -157.40724182128906
+      },
+      {
+        "prefix_len": 15,
+        "closest_prefix_str": " he R I the in P I as in as he I on me all",
+        "loss": 6.098905086517334,
+        "avg_dist": 28.22572530110677,
+        "generation": " { *\n\n\n\n\n\n\n\n\n\n",
+        "target": "Which of the following would be considered contractionary monetary policy?",
+        "logprob": -192.07534790039062
+      }
+    ],
+    "answer_logits": {
+      "A": -9.537632942199707,
+      "B": -10.842864990234375,
+      "C": -10.876253128051758,
+      "D": -11.055261611938477,
+      "E": -11.981629371643066,
+      "F": -13.351210594177246,
+      "G": -13.568967819213867,
+      "H": -11.775571823120117
+    },
+    "correct_answer_logit": -10.842864990234375
+  },
+  {
+    "q": {
+      "question": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+      "subject": "professional_law",
+      "choices": [
+        "prevail, because it was reasonably foreseeable that fights would occur in a crowd of people who were drinking a lot of alcohol.",
+        "prevail, because the person who punched the customer was employed as a bouncer.",
+        "not prevail, because the owner did not touch the customer.",
+        "not prevail, because the owner should not be responsible for the intentional acts of the employee."
+      ],
+      "answer": 1
+    },
+    "extraction_log": [
+      {
+        "prefix_len": 5,
+        "closest_prefix_str": " and and in M as",
+        "loss": 10.080986976623535,
+        "avg_dist": 28.208203887939455,
+        "generation": " \ufffd * (\ufffd * (\ufffd * ( ( ( ( ( ( ( ( (\ufffd * ( ( ( ( ( ( ( ( ( ( ( ( (\ufffd ( ( ( ( (\ufffd\ufffd\ufffd * (\ufffd ( * ( ( ( * ( ( * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * (\ufffd (\ufffd ( ( (\ufffd (\ufffd (\ufffd (\ufffd ( ( (\ufffd (\ufffd (\ufffd\ufffd ( ( (\ufffd * (\ufffd (\ufffd (\ufffd (\ufffd\ufffd\ufffd ( * (\ufffd * ( (\ufffd * ( ( (\ufffd * ( (\ufffd ( ( (\ufffd * (\ufffd (\ufffd\n (",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3714.091064453125
+      },
+      {
+        "prefix_len": 7,
+        "closest_prefix_str": " he the I I per \" most",
+        "loss": 10.3130521774292,
+        "avg_dist": 28.343077523367747,
+        "generation": "\u2023\n\n\ufffd:] ( ( ( ( ( ( ( (\ufffd \ufffd\n\n\n\ufffd ( (\n $ * (\n\ufffd\ufffdPLIED (\nPLIED (\n\ufffd (\n\ufffd ( (\n\n $ * (\n\n\n\n\ufffd *\ufffd\n\u043e\ufffd\ufffd\n\n\u0430 ( use \ufffd\n\n\n\n\n\n\n\n\n full \"\n\ufffd (=$\u2023 \ufffd\nPLIED \ufffd\n\n\n\n\n\n:] ( ( full \" *\ufffd\n:] ( ( ( ( ( * \ufffd\n * \ufffd { ( same\n\ufffd\n\ufffd ( same ( ( ( (\ufffd\n \ufffd\n \ufffd sub ( ( ( ( ( sub same same ( ( ( ( ( ( ( (\ufffd {\u2023 (",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3689.89111328125
+      },
+      {
+        "prefix_len": 9,
+        "closest_prefix_str": " it non as as I the \" I out",
+        "loss": 10.250689506530762,
+        "avg_dist": 28.505685806274414,
+        "generation": " * ( ( ( ( ( ( ( ( (\n\ufffd *\n\ufffd * * * *\n\ufffd * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n * * (\n *\n * (\n * * * (\n * * * (\n * * * * * * * * (\ufffd *\n * * * * * * * * * (\n\n * (\n * (\n\n\n * *\n *\n",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3569.3212890625
+      },
+      {
+        "prefix_len": 11,
+        "closest_prefix_str": " on I other I non he as I he And the",
+        "loss": 9.481470108032227,
+        "avg_dist": 28.49654943292791,
+        "generation": " \ufffd (\n\ufffd\n\n\ufffd\ufffd\ufffd (\n\ufffd\n\ufffd\n\ufffd\n\n\n\n\n\n\n\n * ( ( (\ufffd\ufffd\n\ufffd\ufffd\ufffd\ufffd\ufffd\n *\n\ufffd\ufffd\n\ufffd\n\ufffd\n *\n\ufffd\ufffd\n\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\ufffd\n \"\ufffd { (\n\ufffd\ufffd\ufffd\ufffd\n\ufffd\ufffd\n\ufffd\n\ufffd\n\ufffd { (\n {-- (\n\ufffd\ufffd\n\ufffd\n\ufffd\n\ufffd {:\n\ufffd\n\n\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd:] (\n\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\ufffd\ufffd\ufffd\ufffd\n same\ufffd",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3551.2880859375
+      },
+      {
+        "prefix_len": 13,
+        "closest_prefix_str": " but I her I now me I I SIn he \" it",
+        "loss": 10.171525955200195,
+        "avg_dist": 28.55671325096717,
+        "generation": " * * * * * *\n\n\n\n\n\n\n\n\n\n\n\n\n * ( * ( * * * * (\n *\ufffd * * * * * * *\ufffd\ufffd (\n *\ufffd ( \ufffd *\ufffd * * *\ufffd * (  (  (  * * * * * * *\n\n\n\n\n *\n\n\n\n\n *\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd ( *\ufffd\ufffd * *\ufffd *\n : *\n\n\n\n\n\n\n\n\n\n\n",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3848.01904296875
+      },
+      {
+        "prefix_len": 15,
+        "closest_prefix_str": " \" M a only he but I I for the one I on But the",
+        "loss": 9.173680305480957,
+        "avg_dist": 28.08295071919759,
+        "generation": "\ufffd\n\ufffd \ufffd \ufffd \ufffd \ufffd\ufffd ( ( ( ( ( ( *\ufffd\n ( (\n ( *\ufffd ( * * *\ufffd ( ( ( \ufffd ( \ufffd ( ( (\ufffd ( * * * * \ufffd ( ( ( \ufffd\ufffd ( ( ( ( ( \ufffd ( \ufffd ( ( ( ( ( ( ( ( ( ( ( \ufffd\ufffd ( ( ( ( ( ( \ufffd\ufffd (\n ( ( ( ( ( ( ( ( ( ( ( ( \ufffd\ufffd ( ( ( ( ( ( ( ( ( ( (\n ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( \ufffd \ufffd\ufffd ( ( \ufffd\ufffd ( ( ( ( ( ( ( ( ( ( ( ( ( ( ( (",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3511.674072265625
+      },
+      {
+        "prefix_len": 17,
+        "closest_prefix_str": " so \" my and all new it I \" \" C and in I to other and",
+        "loss": 9.181350708007812,
+        "avg_dist": 28.43706018784467,
+        "generation": "\ufffd \ufffd (\n (\n (\ufffd \ufffd\n (\n (\n ( (\n ( ( \ufffd \ufffd ( \ufffd \" * \ufffd (\ufffd (\n ( \ufffd \ufffd ( ( ( ( ( ( (\n ( (\n ( ( ( ( ( ( ( ( ( ( ( (\n (\n (\n (\n (\n (\n ( ( ( ( ( ( ( (\n (\n (\n ( (\n ( ( ( ( ( ( ( ( (\n (\n * \ufffd ( ( ( ( ( ( ( ( ( (\n ( (\n\ufffd \" (\n\ufffd (\n\ufffd \ufffd \ufffd (\n \ufffd \ufffd ( \ufffd \ufffd ( \ufffd \ufffd \ufffd \ufffd \ufffd ( \ufffd \ufffd \ufffd \ufffd ( ( \ufffd ( \ufffd ( ( ( \ufffd",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3437.60595703125
+      },
+      {
+        "prefix_len": 19,
+        "closest_prefix_str": " \" in he I As on I I so said one as I I so God I I I",
+        "loss": 9.160177230834961,
+        "avg_dist": 28.64929229334781,
+        "generation": " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3570.10498046875
+      },
+      {
+        "prefix_len": 21,
+        "closest_prefix_str": " \" I as I so a for d all \" I and in \" I \" I I we I I",
+        "loss": 10.369048118591309,
+        "avg_dist": 28.365843000866118,
+        "generation": " * ( ( (\ufffd \ufffd \ufffd \ufffd * * (\ufffd \ufffd * ( ( ( ( (\ufffd\ufffd\ufffd\ufffd self ( ( ( ( ( ( ( ( ( ( (\n * ( (\n ( ( ( ( ( ( ( ( ( ( (\n\u2024\ufffd * * * * * * * * * *  ( ( ( ( (\ufffd  ( ( ( ( ( ( (\n * * * * ( ( ( ( ( ( ( (\ufffd self ( ( ( ( (\ufffd * * * * * *  ( * * * * * * * * * ( ( ( (\n\ufffd * * * * * * * * * * * ( (\ufffd * * ( (\ufffd * * * *",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3703.52490234375
+      },
+      {
+        "prefix_len": 23,
+        "closest_prefix_str": " I I more I \" in as I out \" in so all for \" and \" for as as _ said the",
+        "loss": 7.772366046905518,
+        "avg_dist": 28.30250881029212,
+        "generation": "\n sub\n\ufffd\n * ( in * ( * ( in ( in ( *\n * ( in\n *\n\n * ( * ( * (\n same\n:]\n\"><\n * ( * * * * ( one\n++) \"\n * ( * \ufffd\n\ufffd\n * \ufffd\n * * * * ( * * *\n *\ufffd\n *\ufffd\n:\n * * true\ufffd\n\ufffd\n:\n\n {* *\ufffd\n\ufffd\n {* (\n\n \n  * *\u0430 *\u0430\n *\ufffd\n \n * * (\n same\n  * * (\n\n * * ( same\n * * \ufffd\n * * \u2024\n * \ufffd\n\n same\n\n * * \u2024",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3204.298828125
+      },
+      {
+        "prefix_len": 25,
+        "closest_prefix_str": " Mr \" one \" as so all I and out and one \" \" on \" so it I as different I as I one",
+        "loss": 9.66286563873291,
+        "avg_dist": 28.141447219848633,
+        "generation": "\ufffd *\ufffd *\ufffd *\ufffd *\ufffd ( *\ufffd *\ufffd *\ufffd *\ufffd *\ufffd *\ufffd *\ufffd *\ufffd as\n *\ufffd as ( *\ufffd *\ufffd ( *\ufffd ( *\ufffd * ( *\ufffd *\ufffd ( *\ufffd ( *\ufffd ( *\ufffd ( *\ufffd \" *\ufffd ( one\ufffd *\ufffd * ( * ( (\n\ufffd * ( *\ufffd ( *\ufffd ( *\ufffd (\n\ufffd * ( * ( (\n\ufffd * ( *\ufffd ( (\n\ufffd \" * (\ufffd \" ( (\ufffd * (\ufffd (\ufffd (\ufffd \" * ( ( ( (\ufffd (\ufffd\n\ufffd \" (\ufffd ( (\ufffd (\ufffd *\ufffd (\n\ufffd (\ufffd (\ufffd (\ufffd",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3613.37744140625
+      },
+      {
+        "prefix_len": 27,
+        "closest_prefix_str": " \" such I one in it in I at and it the pre one in for He one, he he as P so I and \"",
+        "loss": 7.709819793701172,
+        "avg_dist": 28.447027700918692,
+        "generation": "\n \ufffd\n \ufffd\n\ufffd \ufffd---- (\n\ufffd \ufffd sub\n\n\ufffd \ufffd \n\ufffd \ufffd \n\ufffd \ufffd\n\ufffd \ufffd\n\ufffd \ufffd < *\ufffd \ufffd\n\ufffd \ufffd\ufffd \ufffd\n\ufffd \ufffd\n\ufffd\n\ufffd \ufffd\n\ufffd\ufffd \ufffd\n\ufffd\ufffd \ufffd\n *\ufffd\ufffd\u2024 (\n well one\u0435 (\n\n\n\n\n\ufffd \ufffd\n\n\ufffd \ufffd\n\n\ufffd * (\n\ufffd *\ufffd\ufffd\ufffd \ufffd\n\ufffd *\ufffd * (\n\n\ufffd * ( * ( ( * ( ( same\ufffd\ufffd *\ufffd\ufffd *\ufffd\ufffd\ufffd * (\n\n\ufffd * ( * ( * (\ufffd\ufffd *\ufffd \ufffd { ( *\ufffd *\ufffd\ufffd *\ufffd *\ufffd\ufffd\ufffd\ufffd",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3071.296142578125
+      },
+      {
+        "prefix_len": 29,
+        "closest_prefix_str": " the a it as and on I all I as as \" I and he \" as I I I I non other in I in to that I",
+        "loss": 7.387433052062988,
+        "avg_dist": 28.31065059530324,
+        "generation": "\n *\n ( ( ( ( ( ( ( ( ( ( ( ( (\n (\n (\n (\n (\n (\n ( \"\n ( * (\n ( ( ( ( ( (\n (\n ( (\n\n (\n\n\n\n ( ( ( (\n (\n (\n ( ( ( (\n do\n (\n (\n (\n ( (\n (\n (\n (\n\n\n\n ( (\n ( (\n\n do\n\n (\n\n\n full\n\n\n\n\n (\ufffd\n\n\n\n\n\n\n (\n\n\n\n\n\n\n\n\n\n {\n\n\n\n\n\n\n $ (\n do \ufffd\n\n (\n\n\n\n\n \ufffd",
+        "target": "A customer went into a bar to have a drink. The bar was crowded because a championship boxing match was being shown on the television sets in the bar, and many people had gone to the bar to watch it. During the second round of the boxing match, someone bumped into the customer, causing him to spill a drink on his pants. \"Hey, watch what you're doing, jerk!\" the customer said. The person who had bumped the customer was an employee of the bar hired as a bouncer to deal with unruly customers. Angered by the customer's statement, the employee immediately turned around and punched the customer in the mouth. If the customer asserts a battery claim against the owner of the bar, the customer will most likely",
+        "logprob": -3083.5703125
+      }
+    ],
+    "answer_logits": {
+      "A": -6.226926803588867,
+      "B": -9.103940963745117,
+      "C": -8.698298454284668,
+      "D": -8.119945526123047,
+      "E": -10.362360954284668,
+      "F": -11.590458869934082,
+      "G": -10.826211929321289,
+      "H": -10.825309753417969
+    },
+    "correct_answer_logit": -9.103940963745117
   }
 ]
