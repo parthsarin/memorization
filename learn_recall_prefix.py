@@ -53,6 +53,10 @@ class PrefixLearner:
         # self.embeddings = self.model.gpt_neox.embed_in.to(device)
         self.embedding_dim = self.embeddings.embedding_dim
 
+        # average embedding
+        self.avg_emb = torch.mean(self.embeddings.weight, dim=0).unsqueeze(0)
+        self.avg_emb.requires_grad = False
+
         for param in self.model.parameters():
             param.requires_grad = False
 
@@ -86,7 +90,8 @@ class PrefixLearner:
         embeddings = []
 
         for prefix_len in range(min_recall_tokens, max_recall_tokens + 1, step_size):
-            prefix = torch.randn(1, prefix_len, self.embedding_dim, device=device)
+            # prefix = torch.randn(1, prefix_len, self.embedding_dim, device=device)
+            prefix = self.avg_emb.repeat(1, prefix_len, 1).to(device)
             prefix = nn.Parameter(prefix)
 
             # learn the prefix with backpropagation
