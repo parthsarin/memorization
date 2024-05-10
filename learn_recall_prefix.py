@@ -88,7 +88,7 @@ class PrefixLearner:
             prefix = nn.Parameter(prefix)
 
             # learn the prefix with backpropagation
-            opt = torch.optim.Adam([prefix], lr=1e-3)
+            opt = torch.optim.Adam([prefix], lr=1e-2)
             for ep_idx in range(epochs_per_pf_len):
                 opt.zero_grad()
                 seq = torch.cat([prefix, target], dim=1)
