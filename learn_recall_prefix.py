@@ -54,8 +54,7 @@ class PrefixLearner:
         self.embedding_dim = self.embeddings.embedding_dim
 
         # average embedding
-        self.avg_emb = torch.mean(self.embeddings.weight, dim=0).unsqueeze(0)
-        self.avg_emb.requires_grad = False
+        self.avg_emb = torch.mean(self.embeddings.weight, dim=0).unsqueeze(0).detach()
 
         for param in self.model.parameters():
             param.requires_grad = False
