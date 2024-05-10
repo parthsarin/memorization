@@ -105,6 +105,7 @@ class PrefixLearner:
                 )
 
                 loss.backward()
+                torch.nn.utils.clip_grad_norm_(prefix, 1)
                 opt.step()
 
                 # pull out the logits corresponding to the targets
