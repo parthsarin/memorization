@@ -70,6 +70,8 @@ class PrefixLearner:
         step_size=2,
         verbose=True,
         epochs_per_pf_len=4_000,
+        lr=1e-2,
+        wandb_log=True,
     ) -> Tuple[List[torch.Tensor], List[PrefixLearnerLog]]:
         # get the embeddings of the target
         raw_target = target
@@ -88,7 +90,7 @@ class PrefixLearner:
             prefix = nn.Parameter(prefix)
 
             # learn the prefix with backpropagation
-            opt = torch.optim.Adam([prefix], lr=1e-2)
+            opt = torch.optim.Adam([prefix], lr=lr)
             for ep_idx in range(epochs_per_pf_len):
                 opt.zero_grad()
                 seq = torch.cat([prefix, target], dim=1)
@@ -114,18 +116,19 @@ class PrefixLearner:
                 # add them together to get the probability of the target sequence
                 target_logprob = target_logits.sum()
 
-                wandb.log(
-                    {
-                        "prefix_len": prefix_len,
-                        "loss": loss.item(),
-                        "target": raw_target,
-                        "epoch": ep_idx,
-                        "target_logprob": target_logprob.item(),
-                        # "model_name": f"{self.model_name}-{self.step}"
-                        # if self.step
-                        # else self.model_name,
-                    }
-                )
+                if wandb_log:
+                    wandb.log(
+                        {
+                            "prefix_len": prefix_len,
+                            "loss": loss.item(),
+                            "target": raw_target,
+                            "epoch": ep_idx,
+                            "target_logprob": target_logprob.item(),
+                            # "model_name": f"{self.model_name}-{self.step}"
+                            # if self.step
+                            # else self.model_name,
+                        }
+                    )
 
             # convert the prefix to tokens
             nearest = []
@@ -162,7 +165,8 @@ class PrefixLearner:
                     logprob=target_logprob.item(),
                 )
             )
-            wandb.log(log[-1].to_dict())
+            if wandb_log:
+                wandb.log(log[-1].to_dict())
             embeddings.append(prefix)
 
             if verbose:
