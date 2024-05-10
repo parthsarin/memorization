@@ -91,6 +91,9 @@ class PrefixLearner:
 
             # learn the prefix with backpropagation
             opt = torch.optim.Adam([prefix], lr=lr)
+            lr_schedule = torch.optim.lr_scheduler.CosineAnnealingLR(
+                opt, T_max=epochs_per_pf_len, eta_min=lr / 10
+            )
             for ep_idx in range(epochs_per_pf_len):
                 opt.zero_grad()
                 seq = torch.cat([prefix, target], dim=1)
@@ -105,8 +108,9 @@ class PrefixLearner:
                 )
 
                 loss.backward()
-                torch.nn.utils.clip_grad_norm_(prefix, 1)
+                torch.nn.utils.clip_grad_norm_(prefix, 0.1)
                 opt.step()
+                lr_schedule.step()
 
                 # pull out the logits corresponding to the targets
                 target_logits = logits[0, -target_tokens.size(1) :]
