@@ -16,7 +16,6 @@ def make_prompt(question):
     for l, c in zip(choices, question["choices"]):
         prompt += f"{l}. {c}\n"
 
-    prompt += "\nAnswer:"
     return prompt, choices[question["answer"]]
 
 
@@ -37,16 +36,16 @@ if __name__ == "__main__":
         d["q"] = question
 
         # first, see how familiar the model is with the question
-        q = question["question"]
-        print(f"* Question: {q}")
+        prompt, answer = make_prompt(question)
+        print(f"* Question: {prompt}")
 
-        embeddings, extraction_log = pl.learn_prefix(q)
+        embeddings, extraction_log = pl.learn_prefix(prompt)
         d["extraction_log"] = [l.to_dict() for l in extraction_log]
 
         # then, see how well the model can answer the question
-        prompt, answer = make_prompt(question)
         print(f"* Answer: {answer}")
 
+        prompt += "\nAnswer:"
         model = pl.model
         tokenizer = pl.tokenizer
         prompt = tokenizer(prompt, return_tensors="pt").to(device)
