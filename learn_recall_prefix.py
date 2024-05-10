@@ -68,9 +68,9 @@ class PrefixLearner:
     def learn_prefix(
         self,
         target,
-        min_recall_tokens=5,
-        max_recall_tokens=30,
-        step_size=2,
+        min_recall_tokens=1,
+        max_recall_tokens=15,
+        step_size=1,
         verbose=True,
         epochs_per_pf_len=4_000,
         lr=1e-2,
