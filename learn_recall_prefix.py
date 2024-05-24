@@ -72,7 +72,7 @@ class PrefixLearner:
         max_recall_tokens=15,
         step_size=1,
         verbose=True,
-        epochs_per_pf_len=4_000,
+        epochs_per_pf_len=400,
         lr=1e-2,
         wandb_log=True,
     ) -> Tuple[List[torch.Tensor], List[PrefixLearnerLog]]:

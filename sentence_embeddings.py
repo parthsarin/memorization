@@ -25,6 +25,8 @@ def main(args):
     for i in tqdm(range(args.num_samples)):
         x = data[i]["set"]
         query, pos, neg = x
+        print(f"query: {query}, pos: {pos}, neg: {neg}")
+        print("—" * 40)
 
         # get embeddings for each
         emb, ll = learner.learn_prefix(query, min_recall_tokens=1, max_recall_tokens=1)
@@ -68,7 +70,7 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", type=str, default="EleutherAI/gpt-neo-2.7B")
+    parser.add_argument("--model", type=str, default="mistralai/Mistral-7B-v0.1")
     parser.add_argument("--out", type=str, default="sentence_embeddings.json")
     parser.add_argument("-n", "--num-samples", type=int, default=5000)
     args = parser.parse_args()
