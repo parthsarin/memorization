@@ -13,10 +13,7 @@ from learn_recall_prefix import PrefixLearner
 from tqdm import tqdm
 import json
 
-<<<<<<< HEAD
 
-=======
->>>>>>> e0c140fccc98c8af8e03bb5d5c89c24899c35fa3
 def main(args):
     data = load_dataset("embedding-data/SPECTER")
     learner = PrefixLearner(args.model)
@@ -25,7 +22,7 @@ def main(args):
     out = []
 
     # compute sentence embeddings
-    for i in tqdm(range(len(data))):
+    for i in tqdm(range(args.num_samples)):
         x = data[i]["set"]
         query, pos, neg = x
 
@@ -73,6 +70,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type=str, default="EleutherAI/gpt-neo-2.7B")
     parser.add_argument("--out", type=str, default="sentence_embeddings.json")
+    parser.add_argument("-n", "--num-samples", type=int, default=5000)
     args = parser.parse_args()
 
     main(args)
