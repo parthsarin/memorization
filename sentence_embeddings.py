@@ -12,12 +12,14 @@ import wandb
 from learn_recall_prefix import PrefixLearner
 from tqdm import tqdm
 import json
+import random
 
 
 def main(args):
     data = load_dataset("embedding-data/SPECTER")
     learner = PrefixLearner(args.model)
     data = data["train"]
+    random.shuffle(data)
 
     out = []
 
@@ -72,7 +74,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type=str, default="mistralai/Mistral-7B-v0.1")
     parser.add_argument("--out", type=str, default="sentence_embeddings.json")
-    parser.add_argument("-n", "--num-samples", type=int, default=1000)
+    parser.add_argument("-n", "--num-samples", type=int, default=500)
     args = parser.parse_args()
 
     main(args)
