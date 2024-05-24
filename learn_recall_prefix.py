@@ -14,10 +14,6 @@ import random
 import pickle
 import wandb
 
-wandb.init(
-    project="learn-recall-prefix",
-)
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -37,6 +33,14 @@ class PrefixLearner:
     def __init__(self, model_name, revision=None):
         self.model_name = model_name
         self.step = revision
+
+        wandb.init(
+            project="learn-recall-prefix",
+            config={
+                "model_name": model_name,
+                "revision": revision,
+            },
+        )
 
         if not revision:
             self.model = AutoModelForCausalLM.from_pretrained(model_name).to(device)

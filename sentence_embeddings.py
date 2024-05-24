@@ -54,9 +54,9 @@ def main(args):
             "query": query,
             "pos": pos,
             "neg": neg,
-            "query_logprob": query_logprob.item(),
-            "pos_logprob": pos_logprob.item(),
-            "neg_logprob": neg_logprob.item(),
+            "query_logprob": query_logprob,
+            "pos_logprob": pos_logprob,
+            "neg_logprob": neg_logprob,
             "pos_sim": pos_sim.item(),
             "neg_sim": neg_sim.item(),
         }
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type=str, default="mistralai/Mistral-7B-v0.1")
     parser.add_argument("--out", type=str, default="sentence_embeddings.json")
-    parser.add_argument("-n", "--num-samples", type=int, default=5000)
+    parser.add_argument("-n", "--num-samples", type=int, default=1000)
     args = parser.parse_args()
 
     main(args)
