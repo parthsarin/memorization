@@ -13,6 +13,10 @@ from learn_recall_prefix import PrefixLearner
 from tqdm import tqdm
 import json
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> e0c140fccc98c8af8e03bb5d5c89c24899c35fa3
 def main(args):
     data = load_dataset("embedding-data/SPECTER")
     learner = PrefixLearner(args.model)
@@ -27,15 +31,15 @@ def main(args):
 
         # get embeddings for each
         emb, ll = learner.learn_prefix(query, min_recall_tokens=1, max_recall_tokens=1)
-        query_emb = emb[-1]
+        query_emb = emb[-1].detach().squeeze()
         query_logprob = ll[-1].logprob
 
         emb, ll = learner.learn_prefix(pos, min_recall_tokens=1, max_recall_tokens=1)
-        pos_emb = emb[-1]
+        pos_emb = emb[-1].detach().squeeze()
         pos_logprob = ll[-1].logprob
 
         emb, ll = learner.learn_prefix(neg, min_recall_tokens=1, max_recall_tokens=1)
-        neg_emb = emb[-1]
+        neg_emb = emb[-1].detach().squeeze()
         neg_logprob = ll[-1].logprob
 
         # normalize embeddings
