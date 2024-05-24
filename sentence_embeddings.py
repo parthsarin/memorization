@@ -19,12 +19,12 @@ def main(args):
     data = load_dataset("embedding-data/SPECTER")
     learner = PrefixLearner(args.model)
     data = data["train"]
-    random.shuffle(data)
+    idxs = random.sample(range(len(data)), args.num_samples)
 
     out = []
 
     # compute sentence embeddings
-    for i in tqdm(range(args.num_samples)):
+    for i in tqdm(idxs):
         x = data[i]["set"]
         query, pos, neg = x
         print(f"query: {query}, pos: {pos}, neg: {neg}")
