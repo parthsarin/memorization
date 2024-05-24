@@ -49,8 +49,12 @@ class PrefixLearner:
                 model_name, revision=revision
             )
         self.tokenizer.pad_token_id = self.tokenizer.eos_token_id
-        self.embeddings = self.model.transformer.wte.to(device)
-        # self.embeddings = self.model.gpt_neox.embed_in.to(device)
+        if model_name.startswith("EleutherAI"):
+            self.embeddings = self.model.transformer.wte.to(device)
+        elif model_name.startswith("mistralai"):
+            self.embeddings = self.model.model.embed_tokens.to(device)
+        else:
+            raise ValueError("Model not supported")
         self.embedding_dim = self.embeddings.embedding_dim
 
         # average embedding
