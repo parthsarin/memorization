@@ -109,7 +109,7 @@ def main(args):
             batch = train_keys[batch_idx : batch_idx + args.batch_size]
             s1s = torch.stack([embeddings[k][0] for k in batch])
             s2s = torch.stack([embeddings[k][1] for k in batch])
-            score = torch.tensor([embeddings[k][2] for k in batch])
+            score = torch.tensor([embeddings[k][2] for k in batch], device=device)
 
             # project first
             s1s_proj = project(s1s)
@@ -147,7 +147,7 @@ def main(args):
         # evaluate on test set
         test_s1s = torch.stack([embeddings[k][0] for k in test_keys])
         test_s2s = torch.stack([embeddings[k][1] for k in test_keys])
-        test_score = torch.tensor([embeddings[k][2] for k in test_keys])
+        test_score = torch.tensor([embeddings[k][2] for k in test_keys], device=device)
 
         test_s1s_proj = project(test_s1s)
         test_s2s_proj = project(test_s2s)
