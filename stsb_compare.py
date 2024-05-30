@@ -13,6 +13,7 @@ import wandb
 import json
 from tqdm import tqdm
 
+
 def main(args):
     data = load_dataset("mteb/stsbenchmark-sts")
     learner = PrefixLearner(args.model)
@@ -51,7 +52,7 @@ def main(args):
             "score": score,
             "s1_logprob": s1_logprob,
             "s2_logprob": s2_logprob,
-            "sim": sim.item()
+            "sim": sim.item(),
         }
 
         wandb.log(record)
@@ -60,11 +61,12 @@ def main(args):
         with open(args.out, "w") as f:
             json.dump(out, f, indent=2)
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type=str, default="mistralai/Mistral-7B-v0.1")
     parser.add_argument("--out", type=str, default="stsb_similarity.json")
-    parser.add_argument("-n", "--num-samples", type=int, default=1)000)
+    parser.add_argument("-n", "--num-samples", type=int, default=1_000)
     args = parser.parse_args()
 
     main(args)
