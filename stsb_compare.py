@@ -78,9 +78,10 @@ def get_embeddings(args, learner):
 
         s1_emb = s1_emb.to(device)
         s2_emb = s2_emb.to(device)
+        score = torch.tensor(score).to(device)
 
         embeddings[(s1, s2)] = (s1_emb, s2_emb, score)
-        torch.save(embeddings, args.out)
+        torch.save(embeddings, args.embedding_out)
 
     return embeddings
 
@@ -172,11 +173,21 @@ def main(args):
         )
         print("—" * 40)
 
+        torch.save(
+            {
+                "project": project.state_dict(),
+                "transform_project": transform_project.state_dict(),
+            },
+            args.model_out,
+        )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type=str, default="mistralai/Mistral-7B-v0.1")
-    parser.add_argument("--out", type=str, default="stsb_embeddings.pkl")
+    parser.add_argument("--embedding-out", type=str, default="stsb_embeddings.pkl")
+    parser.add_argument("--model-out", type=str, default="project.pt")
+
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=50)
     parser.add_argument("-n", "--num-samples", type=int, default=1_000)
