@@ -13,6 +13,8 @@ from learn_recall_prefix import PrefixLearner
 from tqdm import tqdm
 import wandb
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 class Projection(nn.Module):
     def __init__(self, embedding_dim, out_dim=256):
@@ -74,6 +76,9 @@ def get_embeddings(args, learner):
         s1_emb = s1_emb / torch.norm(s1_emb)
         s2_emb = s2_emb / torch.norm(s2_emb)
 
+        s1_emb = s1_emb.to(device)
+        s2_emb = s2_emb.to(device)
+
         embeddings[(s1, s2)] = (s1_emb, s2_emb, score)
         torch.save(embeddings, args.out)
 
@@ -85,8 +90,8 @@ def main(args):
     embeddings = get_embeddings(args, learner)
 
     print("\nLearning projections to maximize similarity")
-    project = Projection(learner.embedding_dim)
-    transform_project = TransformProject(learner.embedding_dim)
+    project = Projection(learner.embedding_dim).to(device)
+    transform_project = TransformProject(learner.embedding_dim).to(device)
     emb_keys = list(embeddings.keys())
 
     # train test split
