@@ -1,12 +1,13 @@
 """
 Compare extraction curves with the model's performance on QA tasks.
 """
-from datasets import load_dataset
-from learn_recall_prefix import PrefixLearner
+import argparse
 import json
+import numpy as np
 import torch
 import torch.nn.functional as F
-import numpy as np
+from datasets import load_dataset
+from learn_recall_prefix import PrefixLearner
 import wandb
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -17,15 +18,14 @@ def make_prompt(question):
     choices = "ABCDEFGH"
     for l, c in zip(choices, question["choices"]):
         prompt += f"{l}. {c}\n"
-
     return prompt.strip(), choices[question["answer"]]
 
 
-if __name__ == "__main__":
-    pl = PrefixLearner("EleutherAI/gpt-neo-125m")
+def main(model_name, num_questions):
+    pl = PrefixLearner(model_name)
     data = load_dataset("hails/mmlu_no_train", "all")
     data = data["test"]
-    N = len(data)
+    N = min(num_questions, len(data))
 
     qa_log = []
     # go in a random order
@@ -65,5 +65,29 @@ if __name__ == "__main__":
 
         qa_log.append(d)
         wandb.log(d)
-        with open("qa_log.json", "w") as f:
+        with open(f"qa_log_{model_name.replace('/', '_')}.json", "w") as f:
             json.dump(qa_log, f, indent=2)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Compare extraction curves with the model's performance on QA tasks."
+    )
+    parser.add_argument(
+        "-m",
+        "--model",
+        type=str,
+        required=True,
+        help="The model to use.",
+        default="EleutherAI/gpt-neo-2.7B",
+    )
+    parser.add_argument(
+        "-n",
+        "--num_questions",
+        type=int,
+        default=100,
+        help="Number of questions to evaluate.",
+    )
+    args = parser.parse_args()
+
+    main(args.model, args.num_questions)
