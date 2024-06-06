@@ -7,6 +7,7 @@ import json
 import torch
 import torch.nn.functional as F
 import numpy as np
+import wandb
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -17,7 +18,7 @@ def make_prompt(question):
     for l, c in zip(choices, question["choices"]):
         prompt += f"{l}. {c}\n"
 
-    return prompt, choices[question["answer"]]
+    return prompt.strip(), choices[question["answer"]]
 
 
 if __name__ == "__main__":
@@ -38,7 +39,7 @@ if __name__ == "__main__":
 
         # first, see how familiar the model is with the question
         prompt, answer = make_prompt(question)
-        print(f"* Question: {prompt}")
+        print(f"[PROMPT]\n{prompt}\n[/PROMPT]")
 
         embeddings, extraction_log = pl.learn_prefix(prompt, max_recall_tokens=3)
         d["extraction_log"] = [l.to_dict() for l in extraction_log]
@@ -46,7 +47,7 @@ if __name__ == "__main__":
         # then, see how well the model can answer the question
         print(f"* Answer: {answer}")
 
-        prompt += "\nAnswer: "
+        prompt += "\n\nAnswer: "
         model = pl.model
         tokenizer = pl.tokenizer
         prompt = tokenizer(prompt, return_tensors="pt").to(device)
@@ -57,11 +58,12 @@ if __name__ == "__main__":
         d["answer_logprobs"] = {
             a: logprobs[tokenizer(f"{a}").input_ids[1]].item() for a in "ABCDEFGH"
         }
-        print(f"* Answer logits: {d['answer_logits']}")
+        print(f"* Answer logprobs: {d['answer_logprob']}")
 
-        d["correct_answer_logit"] = completion[answer].item()
-        print(f"* Correct answer logit: {d['correct_answer_logit']}")
+        d["correct_answer_logprob"] = logprobs[answer].item()
+        print(f"* Correct answer logprob: {d['correct_answer_logprob']}")
 
         qa_log.append(d)
+        wandb.log(d)
         with open("qa_log.json", "w") as f:
             json.dump(qa_log, f, indent=2)
