@@ -22,7 +22,7 @@ def make_prompt(question):
 
 
 if __name__ == "__main__":
-    pl = PrefixLearner("mistralai/Mistral-7B-v0.1")
+    pl = PrefixLearner("EleutherAI/gpt-neo-125m")
     data = load_dataset("hails/mmlu_no_train", "all")
     data = data["test"]
     N = len(data)
@@ -41,8 +41,9 @@ if __name__ == "__main__":
         prompt, answer = make_prompt(question)
         print(f"[PROMPT]\n{prompt}\n[/PROMPT]")
 
-        embeddings, extraction_log = pl.learn_prefix(prompt, max_recall_tokens=3)
+        embeddings, extraction_log = pl.learn_prefix(prompt, max_recall_tokens=5)
         d["extraction_log"] = [l.to_dict() for l in extraction_log]
+        breakpoint()
 
         # then, see how well the model can answer the question
         print(f"* Answer: {answer}")
@@ -58,7 +59,7 @@ if __name__ == "__main__":
         d["answer_logprobs"] = {
             a: logprobs[tokenizer(f"{a}").input_ids[1]].item() for a in "ABCDEFGH"
         }
-        print(f"* Answer logprobs: {d['answer_logprob']}")
+        print(f"* Answer logprobs: {d['answer_logprobs']}")
 
         d["correct_answer_logprob"] = logprobs[answer].item()
         print(f"* Correct answer logprob: {d['correct_answer_logprob']}")
