@@ -5,6 +5,7 @@ from datasets import load_dataset
 from learn_recall_prefix import PrefixLearner
 import json
 import torch
+import torch.nn.functional as F
 import numpy as np
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -39,21 +40,22 @@ if __name__ == "__main__":
         prompt, answer = make_prompt(question)
         print(f"* Question: {prompt}")
 
-        embeddings, extraction_log = pl.learn_prefix(prompt, max_recall_tokens=5)
+        embeddings, extraction_log = pl.learn_prefix(prompt, max_recall_tokens=3)
         d["extraction_log"] = [l.to_dict() for l in extraction_log]
 
         # then, see how well the model can answer the question
         print(f"* Answer: {answer}")
 
-        prompt += "\nAnswer:"
+        prompt += "\nAnswer: "
         model = pl.model
         tokenizer = pl.tokenizer
         prompt = tokenizer(prompt, return_tensors="pt").to(device)
         completion = model(**prompt).logits.squeeze(0)[-1, :]
+        logprobs = F.log_softmax(completion, dim=-1)
 
-        answer = tokenizer(f" {answer}").input_ids[0]
-        d["answer_logits"] = {
-            a: completion[tokenizer(f" {a}").input_ids[0]].item() for a in "ABCDEFGH"
+        answer = tokenizer(f"{answer}").input_ids[1]
+        d["answer_logprobs"] = {
+            a: logprobs[tokenizer(f"{a}").input_ids[1]].item() for a in "ABCDEFGH"
         }
         print(f"* Answer logits: {d['answer_logits']}")
 
