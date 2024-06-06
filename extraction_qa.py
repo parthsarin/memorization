@@ -43,21 +43,20 @@ if __name__ == "__main__":
 
         embeddings, extraction_log = pl.learn_prefix(prompt, max_recall_tokens=5)
         d["extraction_log"] = [l.to_dict() for l in extraction_log]
-        breakpoint()
 
         # then, see how well the model can answer the question
         print(f"* Answer: {answer}")
 
-        prompt += "\n\nAnswer: "
+        prompt += "\n\nAnswer:"
         model = pl.model
         tokenizer = pl.tokenizer
         prompt = tokenizer(prompt, return_tensors="pt").to(device)
         completion = model(**prompt).logits.squeeze(0)[-1, :]
         logprobs = F.log_softmax(completion, dim=-1)
 
-        answer = tokenizer(f"{answer}").input_ids[1]
+        answer = tokenizer(f" {answer}").input_ids[-1]
         d["answer_logprobs"] = {
-            a: logprobs[tokenizer(f"{a}").input_ids[1]].item() for a in "ABCDEFGH"
+            a: logprobs[tokenizer(f" {a}").input_ids[-1]].item() for a in "ABCDEFGH"
         }
         print(f"* Answer logprobs: {d['answer_logprobs']}")
 
