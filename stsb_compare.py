@@ -16,23 +16,21 @@ import wandb
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-class Projection(nn.Module):
-    def __init__(self, embedding_dim, out_dim=256):
-        super().__init__()
-        self.proj = nn.Linear(embedding_dim, out_dim)
-
-    def forward(self, x):
-        x = self.proj(x)
-        return x / torch.norm(x, dim=-1, keepdim=True)
-
-
-class TransformProject(nn.Module):
-    def __init__(self, embedding_dim, out_dim=256):
+class Probe(nn.Module):
+    def __init__(self, embedding_dim):
         super().__init__()
         self.m = nn.Sequential(
             nn.Linear(embedding_dim, embedding_dim),
             nn.ReLU(),
-            nn.Linear(embedding_dim, out_dim),
+            nn.Linear(embedding_dim, embedding_dim),
+            nn.ReLU(),
+            nn.Linear(embedding_dim, embedding_dim),
+            nn.ReLU(),
+            nn.Linear(embedding_dim, embedding_dim),
+            nn.ReLU(),
+            nn.Linear(embedding_dim, embedding_dim),
+            nn.ReLU(),
+            nn.Linear(embedding_dim, embedding_dim),
         )
 
     def forward(self, x):
@@ -73,8 +71,8 @@ def get_embeddings(args, learner):
             continue
 
         # normalize embeddings
-        s1_emb = s1_emb / torch.norm(s1_emb)
-        s2_emb = s2_emb / torch.norm(s2_emb)
+        s1_emb = s1_emb
+        s2_emb = s2_emb
 
         s1_emb = s1_emb.to(device)
         s2_emb = s2_emb.to(device)
@@ -91,18 +89,15 @@ def main(args):
     embeddings = get_embeddings(args, learner)
 
     print("\nLearning projections to maximize similarity")
-    project = Projection(learner.embedding_dim).to(device)
-    transform_project = TransformProject(learner.embedding_dim).to(device)
+    probe = Probe(learner.embedding_dim).to(device)
     emb_keys = list(embeddings.keys())
 
     # train test split
-    random.shuffle(emb_keys)
     split_idx = int(0.8 * len(emb_keys))
     train_keys = emb_keys[:split_idx]
     test_keys = emb_keys[split_idx:]
 
-    project_opt = torch.optim.Adam(project.parameters(), lr=1e-3)
-    transform_project_opt = torch.optim.Adam(transform_project.parameters(), lr=1e-3)
+    opt = torch.optim.Adam(probe.parameters(), lr=1e-3)
 
     for ep_idx in range(args.epochs):
         for batch_idx in range(0, len(train_keys), args.batch_size):
@@ -112,72 +107,45 @@ def main(args):
             score = torch.tensor([embeddings[k][2] for k in batch], device=device)
 
             # project first
-            s1s_proj = project(s1s)
-            s2s_proj = project(s2s)
+            s1s_proj = probe(s1s)
+            s2s_proj = probe(s2s)
 
             sim = torch.sum(s1s_proj * s2s_proj, dim=-1)
-            project_loss = torch.mean((sim - score) ** 2)
+            loss = torch.mean((sim - score) ** 2)
 
-            project_opt.zero_grad()
-            project_loss.backward()
-            project_opt.step()
-
-            # transform project
-            s1s_proj = transform_project(s1s)
-            s2s_proj = transform_project(s2s)
-
-            sim = torch.sum(s1s_proj * s2s_proj, dim=-1)
-            transform_project_loss = torch.mean((sim - score) ** 2)
-
-            transform_project_opt.zero_grad()
-            transform_project_loss.backward()
-            transform_project_opt.step()
+            opt.zero_grad()
+            loss.backward()
+            opt.step()
 
             wandb.log(
                 {
-                    "project_loss": project_loss.item(),
-                    "transform_project_loss": transform_project_loss.item(),
+                    "train_loss": loss.item(),
                 }
             )
 
-            print(
-                f"[epoch {ep_idx} batch {batch_idx}] project_loss: {project_loss.item()}, transform_project_loss: {transform_project_loss.item()}"
-            )
+            print(f"[epoch {ep_idx} batch {batch_idx}] train: {loss.item()}")
 
         # evaluate on test set
         test_s1s = torch.stack([embeddings[k][0] for k in test_keys])
         test_s2s = torch.stack([embeddings[k][1] for k in test_keys])
         test_score = torch.tensor([embeddings[k][2] for k in test_keys], device=device)
 
-        test_s1s_proj = project(test_s1s)
-        test_s2s_proj = project(test_s2s)
+        test_s1s_proj = probe(test_s1s)
+        test_s2s_proj = probe(test_s2s)
 
         sim = torch.sum(test_s1s_proj * test_s2s_proj, dim=-1)
-        test_project_loss = torch.mean((sim - test_score) ** 2)
-
-        test_s1s_proj = transform_project(test_s1s)
-        test_s2s_proj = transform_project(test_s2s)
-
-        sim = torch.sum(test_s1s_proj * test_s2s_proj, dim=-1)
-        test_transform_project_loss = torch.mean((sim - test_score) ** 2)
-
+        test_loss = torch.mean((sim - test_score) ** 2)
         wandb.log(
             {
-                "test_project_loss": test_project_loss.item(),
-                "test_transform_project_loss": test_transform_project_loss.item(),
+                "test_loss": test_loss.item(),
             }
         )
 
-        print(
-            f"[epoch {ep_idx}] test_project_loss: {test_project_loss.item()}, test_transform_project_loss: {test_transform_project_loss.item()}"
-        )
+        print(f"[epoch {ep_idx}] test loss: {test_loss.item()}")
         print("—" * 40)
 
         torch.save(
-            {
-                "project": project.state_dict(),
-                "transform_project": transform_project.state_dict(),
-            },
+            probe.state_dict(),
             args.model_out,
         )
 
@@ -185,8 +153,10 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type=str, default="mistralai/Mistral-7B-v0.1")
-    parser.add_argument("--embedding-out", type=str, default="stsb_embeddings.pkl")
-    parser.add_argument("--model-out", type=str, default="project.pt")
+    parser.add_argument(
+        "--embedding-out", type=str, default="stsb_embeddings_unnormalized.pkl"
+    )
+    parser.add_argument("--model-out", type=str, default="probe.pt")
 
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=50)
