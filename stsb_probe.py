@@ -22,6 +22,12 @@ class Probe(nn.Module):
             nn.Linear(embedding_dim, embedding_dim),
             nn.ReLU(),
             nn.Linear(embedding_dim, embedding_dim),
+            nn.ReLU(),
+            nn.Linear(embedding_dim, embedding_dim),
+            nn.ReLU(),
+            nn.Linear(embedding_dim, embedding_dim),
+            nn.ReLU(),
+            nn.Linear(embedding_dim, embedding_dim),
         )
 
     def forward(self, x):
@@ -77,7 +83,7 @@ def main(args):
 
             train_loss += loss.item()
 
-            print(
+            wandb.log(
                 {
                     "batch_loss": loss.item() / len(batch),
                     "epoch": epoch,
