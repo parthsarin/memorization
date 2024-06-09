@@ -8,6 +8,7 @@ information from the embeddings.
 import argparse
 import torch
 import torch.nn as nn
+import wandb
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -67,7 +68,7 @@ def main(args):
 
             train_loss += loss.item()
 
-            wandb.log(
+            print(
                 {
                     "batch_loss": loss.item() / len(batch),
                     "epoch": epoch,
