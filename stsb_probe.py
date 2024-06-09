@@ -30,6 +30,13 @@ class Probe(nn.Module):
 
 
 def main(args):
+    wandb.init(
+        project="learn-recall-prefix",
+        config={
+            **vars(args),
+        },
+    )
+
     embeddings = torch.load(args.input_file)
     embeddings = [
         (*k, *v) for k, v in embeddings.items()
@@ -44,6 +51,8 @@ def main(args):
     split = int(0.8 * len(embeddings))
     train_data = embeddings[:split]
     test_data = embeddings[split:]
+
+    print(f"training on {len(train_data)} samples, testing on {len(test_data)} samples")
 
     for epoch in range(args.epochs):
         probe.train()
