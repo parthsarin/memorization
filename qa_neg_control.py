@@ -41,8 +41,12 @@ def main(args):
     ft_set = [make_prompt(x) for x in ft_set]
     model = pl.model
     tokenizer = pl.tokenizer
-    model.train()
+
+    for param in model.parameters():
+        param.requires_grad = True
+
     optimizer = torch.optim.AdamW(model.parameters(), lr=5e-5)
+
     for epoch in range(args.epochs):
         total_loss = 0
         for i in range(0, len(ft_set), args.batch_size):
@@ -72,6 +76,8 @@ def main(args):
 
     # get extraction curves on the data
     model.eval()
+    for param in model.parameters():
+        param.requires_grad = False
     qa_log = []
     for i, question in enumerate(data):
         d = {}
