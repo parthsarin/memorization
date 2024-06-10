@@ -53,7 +53,7 @@ def main(args):
             )
             inputs = {k: v.to(device) for k, v in inputs.items()}
 
-            outputs = model(**inputs, return_dict=True)
+            outputs = model(**inputs, labels=inputs["input_ids"], return_dict=True)
             loss = outputs.loss
 
             loss.backward()
