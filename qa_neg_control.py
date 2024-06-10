@@ -33,7 +33,7 @@ def main(args):
     N = min(args.num_questions, len(data))
 
     # get a random subset of the data
-    data = [data[x] for x in np.random.permutation(len(data))[:N]]
+    data = [data[int(x)] for x in np.random.permutation(len(data))[:N]]
 
     # fine-tune on the first 30% of the data
     bkpt = int(0.3 * N)
