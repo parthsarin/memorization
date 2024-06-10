@@ -68,7 +68,7 @@ def main(args):
         print(f"[epoch {epoch}] ft_loss: {total_loss}")
         wandb.log({"ft_loss": total_loss})
 
-    print("\n\n====================\n\n"")
+    print("\n\n====================\n\n")
 
     # get extraction curves on the data
     model.eval()
