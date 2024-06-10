@@ -31,7 +31,6 @@ def main(args):
     model_name = args.model
     data = load_dataset("hails/mmlu_no_train", "all")
     data = data["test"]
-    min(args.num_questions, len(data))
 
     # get a random subset of the data
     print("Getting random subset of data")
