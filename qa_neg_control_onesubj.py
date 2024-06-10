@@ -127,7 +127,9 @@ def main(args):
 
         qa_log.append(d)
         wandb.log(d)
-        with open(f"qa_log_finetuned_{model_name.replace('/', '_')}.json", "w") as f:
+        with open(
+            f"qa_log_finetuned_onesubj_{model_name.replace('/', '_')}.json", "w"
+        ) as f:
             json.dump(qa_log, f, indent=2)
 
 
@@ -137,7 +139,7 @@ if __name__ == "__main__":
     )
 
     parser.add_argument("-m", "--model", type=str, default="EleutherAI/gpt-neo-125m")
-    parser.add_argument("-n", "--num_per_subj", type=int, default=100)
+    parser.add_argument("-n", "--num_per_subj", type=int, default=50)
     parser.add_argument("-ft", "--num_ft_subj", type=int, default=5)
     parser.add_argument("-e", "--epochs", type=int, default=100)
     parser.add_argument("-b", "--batch_size", type=int, default=40)

@@ -114,7 +114,9 @@ def main(args):
 
         qa_log.append(d)
         wandb.log(d)
-        with open(f"qa_log_finetuned_{model_name.replace('/', '_')}.json", "w") as f:
+        with open(
+            f"qa_log_finetuned_randsubset_{model_name.replace('/', '_')}.json", "w"
+        ) as f:
             json.dump(qa_log, f, indent=2)
 
 
