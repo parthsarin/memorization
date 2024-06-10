@@ -29,7 +29,7 @@ def main(args):
     pl = PrefixLearner(args.model)
     model_name = args.model
     data = load_dataset("hails/mmlu_no_train", "all")
-    data = data["train"]
+    data = data["test"]
     N = min(args.num_questions, len(data))
 
     # get a random subset of the data
