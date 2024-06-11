@@ -129,7 +129,7 @@ if __name__ == "__main__":
         "input_file",
         type=str,
         help="The file containing the embeddings.",
-        default="out/stsb_embeddings.pkl",
+        default="out/stsb_embeddings_unnormalized.pkl",
     )
 
     parser.add_argument(
