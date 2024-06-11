@@ -17,22 +17,18 @@ class Probe(nn.Module):
     def __init__(self, embedding_dim):
         super().__init__()
         self.m = nn.Sequential(
-            nn.Linear(embedding_dim, embedding_dim),
+            nn.Linear(2 * embedding_dim, embedding_dim),
             nn.ReLU(),
             nn.Linear(embedding_dim, embedding_dim),
             nn.ReLU(),
-            nn.Linear(embedding_dim, embedding_dim),
-            nn.ReLU(),
-            nn.Linear(embedding_dim, embedding_dim),
-            nn.ReLU(),
-            nn.Linear(embedding_dim, embedding_dim),
-            nn.ReLU(),
-            nn.Linear(embedding_dim, embedding_dim),
+            nn.Linear(embedding_dim, 1),
+            nn.Sigmoid(),
         )
 
     def forward(self, x):
         x = self.m(x)
-        return x / torch.norm(x, dim=-1, keepdim=True)
+        return x
+        # return x / torch.norm(x, dim=-1, keepdim=True)
 
 
 def main(args):
@@ -71,11 +67,12 @@ def main(args):
             score = torch.tensor(score).to(device)
 
             optimizer.zero_grad()
-            s1_emb = probe(s1_emb)
-            s2_emb = probe(s2_emb)
+
+            inp = torch.cat([s1_emb, s2_emb], dim=-1)
+            score_pred = probe(inp)
 
             # take their dot product
-            score_pred = torch.sum(s1_emb * s2_emb, dim=-1)
+            # score_pred = torch.sum(s1_emb * s2_emb, dim=-1)
             loss = loss_fn(score_pred, score)
 
             loss.backward()
@@ -101,12 +98,14 @@ def main(args):
             s1_emb = torch.stack(s1_emb).to(device)
             s2_emb = torch.stack(s2_emb).to(device)
             score = torch.tensor(score).to(device)
+            inp = torch.cat([s1_emb, s2_emb], dim=-1)
 
-            s1_emb = probe(s1_emb)
-            s2_emb = probe(s2_emb)
+            # s1_emb = probe(s1_emb)
+            # s2_emb = probe(s2_emb)
 
             # take their dot product
-            score_pred = torch.sum(s1_emb * s2_emb, dim=-1)
+            # score_pred = torch.sum(s1_emb * s2_emb, dim=-1)
+            score_pred = probe(inp)
             loss = loss_fn(score_pred, score)
 
             test_loss += loss.item()
