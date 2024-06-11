@@ -69,7 +69,7 @@ def main(args):
             optimizer.zero_grad()
 
             inp = torch.cat([s1_emb, s2_emb], dim=-1)
-            score_pred = probe(inp)
+            score_pred = probe(inp).squeeze()
 
             # take their dot product
             # score_pred = torch.sum(s1_emb * s2_emb, dim=-1)
@@ -105,7 +105,7 @@ def main(args):
 
             # take their dot product
             # score_pred = torch.sum(s1_emb * s2_emb, dim=-1)
-            score_pred = probe(inp)
+            score_pred = probe(inp).squeeze()
             loss = loss_fn(score_pred, score)
 
             test_loss += loss.item()
