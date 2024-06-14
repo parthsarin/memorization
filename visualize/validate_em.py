@@ -27,7 +27,7 @@ sns.lineplot(
 )
 
 plt.xlabel("EM")
-plt.ylabel("Logprob")
+plt.ylabel("Logprob at prefix length 1")
 
-plt.title("Logprob at prefix length 1")
-plt.show()
+# plt.title("Logprob at prefix length 1")
+plt.savefig("../img/validate_em.png", dpi=300)
