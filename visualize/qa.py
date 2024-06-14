@@ -23,8 +23,8 @@ qa_log = json.load(open("../out/qa_log_finetuned_onesubj_EleutherAI_gpt-neo-125m
 # qa_log = json.load(open("../out/qa_log_EleutherAI_gpt-neo-2.7B.json"))
 # qa_log = json.load(open("../out/qa_log_mistralai_Mistral-7B-v0.1.json"))
 print(f"Loaded {len(qa_log)} logs")
-ft_subj = {d["q"]["subject"] for d in qa_log if d["did_fine_tune"]}
-print(f"Fine-tuned on {ft_subj} subjects")
+# ft_subj = {d["q"]["subject"] for d in qa_log if d["did_fine_tune"]}
+# print(f"Fine-tuned on {ft_subj} subjects")
 
 for d in qa_log:
     prompt = make_prompt(d["q"], answer=False)
@@ -122,14 +122,14 @@ for d in qa_log:
     cal = d["correct_answer_logprob"]
 
     # break this into buckets -1-0, -5 - -1, -10 - -5, and < -10, different colors
-    # if cal >= -1:
-    #     x["bucket"] = "[-1, 0)"
-    #     x["color"] = "green"
-    # elif cal >= -5:
-    #     x["bucket"] = "[-5, -1)"
-    #     x["color"] = "blue"
-    if cal >= -10:
-        x["bucket"] = "[-10, 0)"
+    if cal >= -1:
+        x["bucket"] = "[-1, 0)"
+        x["color"] = "green"
+    elif cal >= -5:
+        x["bucket"] = "[-5, -1)"
+        x["color"] = "blue"
+    elif cal >= -10:
+        x["bucket"] = "[-10, -5)"
         x["color"] = "orange"
     else:
         x["bucket"] = "< -10"
@@ -151,9 +151,14 @@ for bucket in df.bucket.unique():
         label=bucket,
     )
 
-plt.xlabel("prefix len")
-plt.ylabel("logprob")
-plt.legend()
+plt.xlabel("Prefix length")
+plt.ylabel("Logprob of question, per token")
+plt.ylim(-1, 0.1)
+plt.xticks([1, 2, 3, 4, 5])
+plt.legend(title="Correct answer logprob")
+ax = plt.gca()
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.05),
+          ncol=2, fancybox=True)
 plt.show()
 
 
