@@ -3,6 +3,7 @@ import json
 from transformers import AutoTokenizer
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 sns.set_theme(style="whitegrid")
 
@@ -114,8 +115,8 @@ for d in qa_log:
 df = []
 for d in qa_log:
     ft = d["did_fine_tune"]
-    if ft:
-        continue
+    # if ft:
+    #     continue
     x = {
         "correct answer logprob": d["correct_answer_logprob"],
     }
@@ -141,7 +142,7 @@ df = pd.DataFrame(df)
 
 plt.figure(figsize=(12, 6))
 # errorbar
-for bucket in df.bucket.unique():
+for bucket in ("[-1, 0)", "[-5, -1)", "[-10, -5)", "< -10"):
     sns.regplot(
         x="prefix_len",
         y="logprob",
@@ -149,17 +150,18 @@ for bucket in df.bucket.unique():
         x_ci="ci",
         color=df[df.bucket == bucket].color.values[0],
         label=bucket,
+        x_estimator=np.mean
     )
 
 plt.xlabel("Prefix length")
 plt.ylabel("Logprob of question, per token")
 plt.ylim(-1, 0.1)
 plt.xticks([1, 2, 3, 4, 5])
-plt.legend(title="Correct answer logprob")
 ax = plt.gca()
 ax.legend(loc='upper center', bbox_to_anchor=(0.5, 1.05),
-          ncol=2, fancybox=True)
-plt.show()
+          ncol=2, fancybox=True, title="Correct answer logprob")
+# plt.savefig("../img/mmlu.png", dpi=300)
+plt.savefig("../img/mmlu_finetuned.png", dpi=300)
 
 
 # df = []
